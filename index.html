@@ -261,6 +261,25 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
 </style>
 </head>
 <body>
+<!-- Hidden static forms so Netlify's deploy-time bot registers these form names and fields.
+     The real forms above are JS-driven; submitWaitlist()/submitPartner() POST to these via fetch. -->
+<form name="waitlist" data-netlify="true" hidden>
+  <input type="hidden" name="form-name" value="waitlist">
+  <input name="timestamp"><input name="formType"><input name="formLanguage">
+  <input name="name"><input name="email"><input name="phone"><input name="age">
+  <input name="program"><input name="who"><input name="dyad"><input name="investment">
+  <input name="priority"><input name="beta"><input name="referral"><input name="deposit">
+  <textarea name="notes"></textarea>
+</form>
+<form name="partner" data-netlify="true" hidden>
+  <input type="hidden" name="form-name" value="partner">
+  <input name="timestamp"><input name="formType"><input name="formLanguage">
+  <input name="name"><input name="email"><input name="org"><input name="title">
+  <input name="website"><input name="phone"><input name="location"><input name="orgType">
+  <input name="popSize"><input name="communityLang"><input name="programs">
+  <input name="cohorts"><input name="timeline"><input name="funding"><input name="community">
+  <input name="referral"><input name="notes">
+</form>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="a11y-bar" role="toolbar" aria-label="Accessibility options">
   <div class="a11y-group">
@@ -904,9 +923,11 @@ function switchPricing(type,btn) {
   document.getElementById('pricing-'+type).classList.add('active');
 }
 
-const SHEETS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
-async function postToSheets(data) {
-  try { await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); } catch(e) {}
+async function postToNetlify(formName, data) {
+  const body = new URLSearchParams({ 'form-name': formName, ...data }).toString();
+  try {
+    await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+  } catch (e) {}
 }
 
 async function submitWaitlist() {
@@ -932,7 +953,7 @@ async function submitWaitlist() {
     deposit:deposit?'YES — $100':'No',
     notes:document.getElementById('f-notes').value
   };
-  await postToSheets(formData);
+  await postToNetlify('waitlist', formData);
   const subj=encodeURIComponent('New MEMOIVA Waitlist — '+name);
   const body=encodeURIComponent(Object.entries(formData).map(([k,v])=>k+': '+v).join('\n'));
   window.open('mailto:ruthy@memoiva.com?subject='+subj+'&body='+body,'_blank');
@@ -960,7 +981,7 @@ async function submitPartner() {
     funding:document.getElementById('p-funding').value,community,
     referral:document.getElementById('p-referral').value,notes:document.getElementById('p-notes').value
   };
-  await postToSheets(formData);
+  await postToNetlify('partner', formData);
   const subj=encodeURIComponent('MEMOIVA Partnership — '+org);
   const body=encodeURIComponent(Object.entries(formData).map(([k,v])=>k+': '+v).join('\n'));
   window.open('mailto:partnerships@memoiva.com?subject='+subj+'&body='+body,'_blank');

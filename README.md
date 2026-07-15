@@ -31,24 +31,27 @@ timing, etc.) — check any future edit against that list before it goes live.
 
 This was chosen deliberately over GitHub Pages/Vercel for non-developer ease.
 
-**Fastest path (no GitHub connection needed):**
-1. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag `index.html` onto the page → it's live immediately on a `*.netlify.app` URL
-3. Netlify → Site settings → Domain management → add `memoiva.com`
+**Recommended path (auto-deploys on every future edit) — do this one:**
+1. Go to [app.netlify.com](https://app.netlify.com) → **Add new site → Import an existing project**
+2. Connect GitHub, authorize Netlify, pick **`ruthymunoz1-cyber/MEMOIVA`**
+3. Build settings: leave everything blank/default (no build command, publish directory `/`) — it's a static file, nothing to build
+4. Deploy. Every future `git push` to `main` redeploys automatically — no manual re-uploads ever again
+5. Site settings → Domain management → add `memoiva.com`
 
-**Recommended path (auto-deploys on every future edit):**
-1. Netlify → Add new site → Import an existing project → connect this GitHub repo
-2. Every push to `main` redeploys automatically — no manual re-uploads ever again
-3. Connect `memoiva.com` the same way as above
+**Fastest path (skip if you did the above)** — drag `index.html` onto [app.netlify.com/drop](https://app.netlify.com/drop) for an instant one-off deploy with no GitHub connection. Fine for a quick preview, but every edit after that has to be re-dragged by hand — the GitHub-connected path above is the one that actually saves you time going forward.
+
+## Waitlist & partner form submissions — Netlify Forms (wired, no setup needed)
+
+Both forms now POST to Netlify Forms automatically once the site is deployed
+through Netlify (either path above) — no Google Apps Script, no backend code.
+Submissions land in **Site → Forms** in your Netlify dashboard, and you can
+turn on an email notification per form there (Forms → Settings → Form
+notifications) so you get pinged the moment someone joins the waitlist. The
+`mailto:` fallback still fires too, so you get a backup copy in your inbox
+either way.
 
 ## Still needed before full launch (from the project brief's checklist)
 
-- [ ] Replace `SHEETS_URL` placeholder in `index.html`'s `<script>` with a real
-      Google Apps Script Web App URL (both the waitlist and partner forms post
-      here) — until then, submissions fall back to a `mailto:` link, which
-      works but isn't as reliable on mobile
-- [ ] Build the two Google Forms (waitlist + partner) per `docs/`
-      guide, or finish wiring the Apps Script Sheets pipeline instead
 - [ ] Set up Stripe for the $100 refundable deposit
 - [ ] Create the Facebook page per `docs/facebook-launch-copy.md`
 - [ ] Legal review of the full site

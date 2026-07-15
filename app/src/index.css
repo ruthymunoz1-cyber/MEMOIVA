@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  MEMOIVA global styles.
+  Accessibility baseline for adults 50+:
+  - 18px minimum body size everywhere in the app
+  - visible focus states
+  - reduced-motion support
+  Fonts: clean system sans stack (see tailwind.config.js). The marketing site
+  uses Bebas Neue / Cormorant Garamond / Jost from Google Fonts if brand match
+  is wanted later.
+*/
+
+html {
+  font-size: 18px; /* minimum body font size 18px throughout */
+}
+
+body {
+  @apply bg-appbg text-body font-sans antialiased;
+}
+
+/* Visible focus states for full keyboard navigability */
+:focus-visible {
+  outline: 3px solid #0e7c7b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Flashcard 3D flip */
+.flip-card-inner {
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* Progress ring fill animation */
+.ring-progress {
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+/* Respect prefers-reduced-motion: disable/simplify all animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .flip-card-inner {
+    transition: none;
+  }
+  .ring-progress {
+    transition: none;
+  }
+}

@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-09-23 (Supabase swap built, needs a real project to finish)_
+_Last updated: 2026-09-23 (pre/post instrument drafted; curriculum-gap confirmed)_
 
 **Timeline note:** the project brief's "week of July 27, 2026" beta launch
 date has passed with no cohort started. New target: a real beta cohort
@@ -37,8 +37,16 @@ within 4–6 weeks of 2026-09-23 (see `PRD.md` §2, §6 for what that requires).
   app is a between-session companion (not used live during Zoom, PRD §5),
   auth is Supabase magic links with hand-added students (PRD §6), and the
   pre/post assessment stays out of the app for v1 (PRD §7). Still open:
-  locking an actual beta date, and the assessment instrument choice (PRD
-  §13) — neither blocks the work below.
+  locking an actual beta date (PRD §13) — doesn't block the work below.
+- **Pre/post assessment structure drafted** (`assessment-design.md`) —
+  6-segment, ~8–10 min instrument covering all three pillars (Language,
+  Music, Brain Health) plus self-report. Reuses the existing Memory Grid
+  game and Coloring Studio rather than new games. Needs founder-supplied
+  content before it's final: the song, the movement routine, and review
+  of draft vocabulary/confidence items (see that doc's §7 checklist).
+  Recommended (pending founder confirmation) to build the in-app version
+  as Phase 2, after beta 1 launches, so it doesn't compete with the
+  Supabase work below.
 
 ## Not started
 
@@ -59,7 +67,10 @@ within 4–6 weeks of 2026-09-23 (see `PRD.md` §2, §6 for what that requires).
   environment settings — not pasted in chat — then start a new session so
   they load. From there the real end-to-end flow (magic-link email,
   roster visibility, RLS) can actually be tested for the first time.
-- **Reference docs re-upload** — pedagogy.md, character-system.md, assessment-design.md, short-movie-talks.md, SKILL.md, file-structure.md, and both .docx specs were shared only with a previous Claude session and are not in GitHub. Attach them in a session and have them committed to `docs/app/`. Until then, curriculum-content work should not proceed (risk of contradicting locked design decisions).
+- **Assessment content** — `assessment-design.md` needs founder-supplied
+  content (the song, the movement routine, review of draft items) before
+  it's final. See that doc's §7 checklist.
+- **Reference docs re-upload** — pedagogy.md, character-system.md, short-movie-talks.md, SKILL.md, file-structure.md, and both .docx specs were shared only with a previous Claude session and are not in GitHub. Attach them in a session and have them committed to `docs/app/`. Until then, curriculum-content work (beyond what's in `assessment-design.md` and week 1) should not proceed (risk of contradicting locked design decisions). Note: `assessment-design.md` itself has now been reconstructed as a working draft (2026-09-23) — if the original file turns up, reconcile against it rather than assuming the draft wins.
 
 ## Standing rules
 

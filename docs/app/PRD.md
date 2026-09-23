@@ -159,11 +159,34 @@ in v1.** Two reasons:
    engineering one, and it shouldn't be improvised into existence to hit
    a beta deadline.
 
-Suggested path: administer it outside the app for beta 1 (paper, PDF, or
-facilitator-led), however you'd planned to before the app existed. Once
-you've chosen the instrument, a later phase can add a simple
-facilitator/admin-entered results field that shows up in a student's My
-Progress — display only, not administering the assessment itself.
+**Instrument chosen, 2026-09-23:** a custom RAMP-owned instrument —
+combining a short language-recall/recognition task tied to the actual
+curriculum with an expanded version of the confidence/memory self-report
+already in the app, explicitly framed as not a clinical assessment. This
+is proprietary IP, needs no outside licensing, and reuses infrastructure
+already built (flashcards/game engine for the recall piece, the check-in
+pattern for the self-report piece).
+
+**Still administered outside the app for beta 1** (v1 scope in §6 is
+unchanged) — choosing the instrument type doesn't change the timeline
+math, and the actual item content still has to be designed before
+anything gets built. See the note at the end of this section on a
+possible conflict with `assessment-design.md` before that design work
+starts.
+
+Once beta 1 is running, a later phase can add: the recall task as an
+in-app activity (weeks 1 and 8), the expanded self-report as an extended
+check-in, and a facilitator/admin-visible results comparison in My
+Progress.
+
+> **Before this gets designed:** `program-state.md`'s "Blocked / needs
+> Ruthy" section already lists `assessment-design.md` — described as
+> "pre/post instrument design, placement test guidance" — among the
+> reference docs that were shared with a previous session but never made
+> it into this repo. That file may already contain a locked design for
+> exactly this instrument. Designing fresh content here without checking
+> risks contradicting a decision that already exists. See the open
+> question below.
 
 ## 8. Admin roles
 
@@ -237,8 +260,11 @@ as written. What's still genuinely open, and doesn't block starting work:
 1. **New target beta date** — "4–6 weeks from now" (late Oct–early Nov
    2026) is still a window, not a locked date. Worth picking an actual
    date once facilitator/cohort readiness is known.
-2. **Assessment instrument** — once chosen, tells us what (if anything)
-   the app needs to display in Phase 2.
+2. **Assessment instrument type — decided (§7):** custom RAMP-owned
+   recall + self-report instrument. **Blocking before content design
+   starts:** does `assessment-design.md` (listed in `program-state.md` as
+   not yet re-uploaded) already contain a locked design for this? Needs
+   an answer before writing actual instrument items.
 3. Anything in §11 that turns out to be a wrong assumption.
 
 ---

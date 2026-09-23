@@ -1,8 +1,9 @@
 # MEMOIVA Piano Lessons — Design Note
 
-**Status:** v1 built and working (`app/src/pages/participant/Piano.jsx`).
-Color scheme and first lesson are placeholders pending your review — see
-§3.
+**Status:** v1 built and working (`app/src/pages/participant/Piano.jsx`),
+running on a placeholder color scheme and lesson (§3–4) by founder
+decision, 2026-09-23. A collaborator is writing up MEMOIVA's own original
+method to replace it — see §8 for the exact spec they need.
 
 ## 1. What it is
 
@@ -13,30 +14,38 @@ piano/MIDI connection). Notes play as synthesized tones (Web Audio API,
 built into every modern browser — no audio files or paid service
 involved).
 
-## 2. Why it isn't built on "Piano by Pictures" / Stephen Ridley's method
+## 2. Why it isn't built on "Piano by Pictures" or Stephen Ridley's method
 
-Searched for this while building: Stephen Ridley is the creator of
-**Ridley Academy** / "The Complete Piano Masterclass," a paid course
-($1,397–$2,997). One search result was a Truth in Advertising (a
-consumer-protection watchdog) article titled "Stephen Ridley's Piano
-Academy: The Disturbing Truth" — worth knowing given MEMOIVA's own brand
-carefully avoids anything that reads as overreaching or deceptive (see
-the FTC/Lumosity caution in `project-brief.md`). Nothing specifically
-called "Piano by Pictures" turned up tied to him.
+Two different sources got checked, and turned out to be two different,
+unrelated products:
 
-Two separate things, treated differently:
-- **His specific proprietary method/color system** (if he has one) — not
-  used. Even if found, building a commercial product around a paid
-  competitor's specific method is a real IP risk, not something to do
-  without a license.
-- **General teaching philosophy** — ideas like "small steps" and "play
-  real, simple songs from day one, no sheet music required" are common
-  good beginner-piano pedagogy, not exclusive to any one course. v1
-  borrows the *spirit* of that, not his content.
+- **Stephen Ridley** — creator of **Ridley Academy** / "The Complete
+  Piano Masterclass," a paid course ($1,397–$2,997). One search result
+  was a Truth in Advertising (consumer-protection watchdog) article
+  titled "Stephen Ridley's Piano Academy: The Disturbing Truth" — worth
+  knowing given MEMOIVA's own brand carefully avoids anything that reads
+  as overreaching or deceptive (see the FTC/Lumosity caution in
+  `project-brief.md`). Nothing tied "Piano by Pictures" to him
+  specifically.
+- **"Piano by Pictures"** — a real, separate paid product from **Gospel
+  on the Go Piano**, which teaches using images instead of traditional
+  sheet music. Confirmed via search that it exists and is real; could not
+  access the actual site or landing page directly (blocked by this
+  session's network policy as an ad-tracking domain) or find specifics of
+  their actual system beyond the general "pictures, not sheet music"
+  description.
 
-If you actually own his course and want something specific pulled from
-it, share the material directly and this gets revised — but nothing here
-was built by guessing at his proprietary content.
+Either way, the same reasoning applies: **building a commercial product
+around a paid competitor's specific proprietary method is a real IP
+risk**, not something to do by guessing from marketing copy, even where
+the general teaching philosophy (pictures/colors instead of sheet music,
+small steps, real songs early) is common, non-exclusive good pedagogy
+that's fine to draw on in spirit.
+
+**Founder decision, 2026-09-23:** keep the current placeholder system for
+now (§3–4 below). A trusted collaborator is writing up MEMOIVA's own
+original method description, which replaces this placeholder once ready
+— see §8 for exactly what that write-up needs to include.
 
 ## 3. The color scheme — placeholder, needs your sign-off
 
@@ -93,5 +102,40 @@ Score = notes matched in the correct sequence out of the lesson length.
 1. Confirm or replace the color scheme (§3)
 2. Confirm or replace the first lesson / decide the real lesson
    progression across weeks (§4)
-3. If you have Stephen Ridley's actual material and it's meant to be
-   used, share it directly rather than have it guessed at
+3. Original MEMOIVA method write-up from your collaborator — see §8 for
+   exactly what to give them
+
+## 8. Spec for the original MEMOIVA method write-up
+
+Six things this needs to cover to actually replace the placeholder —
+written for a non-technical collaborator, not as code:
+
+1. **Color-to-note mapping** — for all 12 notes in an octave (the 7
+   natural notes C-D-E-F-G-A-B, plus the 5 sharps/flats in between),
+   which color represents each one. A simple list is enough ("C = red,
+   C# = ?, D = orange…"); specific hex codes are ideal but "a warm red"
+   works too.
+2. **Color-only, or color + picture** — some methods pair each note with
+   both a color *and* a small image (e.g. "C = red apple," "D = orange
+   sun") to help it stick. If pictures are part of it, need the image
+   that goes with each note.
+3. **How a full song gets represented** — once a note has a color/
+   picture, a song becomes a sequence of those cues in order (sheet
+   music, but in colors instead of notes on a staff). For each song
+   wanted, need that sequence — either the song translated into
+   color-sequence form, or enough detail (song name + notes in order) to
+   build it from.
+4. **Lesson progression** — what comes first, second, third (e.g. learn
+   where each color/note is → play a 3-note pattern → play a full simple
+   song). How many lessons for a first version, and roughly what order.
+5. **What counts as "done"** — hit every note perfectly in order, or is
+   there room for mistakes/retries before a lesson counts as complete?
+   (Current placeholder: unlimited retries, must hit the sequence in
+   order.)
+6. **Real song choices, if any** — actual well-known songs (not just
+   drills) each need the same public-domain check done for
+   `song-library.md` — flag the song titles and this gets verified.
+
+**Separate, bigger ask, not part of this handoff:** real piano-sample
+audio instead of the synthesized tones currently used would need actual
+audio files, not just a written description — treat as a later upgrade.

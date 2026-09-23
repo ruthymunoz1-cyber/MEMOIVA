@@ -88,10 +88,13 @@ nothing else here substitutes for that step (see Blocked below).
 - **Real song recordings** — `song-library.md` needs the actual Week 1
   signature song (and the real public-domain catalog list) before the
   song library is more than a working mechanism with placeholder content.
-- **Piano color scheme / lesson content review** — `piano-lessons.md`
-  needs founder sign-off on the placeholder color scheme and first
-  lesson, or the real Stephen Ridley material if that's meant to be used
-  directly (couldn't be found/verified — see that doc §2).
+- **Piano method write-up** — a collaborator is writing up MEMOIVA's own
+  original color/picture piano method to replace the current placeholder.
+  Full spec for what that write-up needs is `piano-lessons.md` §8. (Two
+  outside sources were checked and ruled out as things to copy from:
+  Stephen Ridley's Ridley Academy and Gospel on the Go Piano's "Piano by
+  Pictures" — both real, both paid, both left alone for IP reasons — see
+  that doc §2.)
 - **Reference docs re-upload** — pedagogy.md, character-system.md, short-movie-talks.md, SKILL.md, file-structure.md, and both .docx specs were shared only with a previous Claude session and are not in GitHub. Attach them in a session and have them committed to `docs/app/`. Until then, curriculum-content work (beyond what's in `assessment-design.md` and week 1) should not proceed (risk of contradicting locked design decisions). Note: `assessment-design.md` itself has now been reconstructed as a working draft (2026-09-23) — if the original file turns up, reconcile against it rather than assuming the draft wins.
 
 ## Standing rules

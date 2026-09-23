@@ -1,7 +1,13 @@
 # MEMOIVA App — Product Requirements Document (PRD)
 
 **Status:** Approved v1 — founder signed off 2026-09-23 (§5, §6 auth approach,
-and §7 all confirmed as written)
+and §7 all confirmed as written). **Timeline note (2026-09-23):** the 4–6
+week beta target in §2 was the plan when this was approved. Since then,
+founder direction has been to keep building new scope (expanded
+assessment, song library, piano lessons — see `assessment-design.md`,
+`song-library.md`, `piano-lessons.md`) rather than hold to that window.
+Treat §2's timeline as superseded, not deleted — the tradeoff is real and
+worth revisiting once the current build settles.
 **Owner:** Ruthy Muñoz
 **Last updated:** 2026-09-23
 
@@ -12,6 +18,8 @@ it's built" docs already in this folder:
 - `app-architecture.md` — technical design
 - `program-state.md` — living build status
 - `deployment-and-hosting.md` — hosting/rollout plan
+- `assessment-design.md`, `song-library.md`, `piano-lessons.md` — content/
+  feature design notes for what's been added since original approval
 
 For the live 8-week MEMOIVA Circle program itself (curriculum, pricing,
 brand), see `../project-brief.md`. This PRD treats that program as fixed

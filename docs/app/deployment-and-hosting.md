@@ -48,3 +48,13 @@ reject or flag apps whose "login" is a shared PIN.
 - Add a `netlify.toml` at repo root: build command `cd app && npm install && npm run build`, publish the site so `index.html` stays at `/` and `app/dist` is served under `/app` (Vite `base: '/app/'`).
 - Keep Netlify Forms wiring on the marketing site untouched.
 - Add `noindex` meta to the app pages while it's preview-only.
+
+## 2026-09-23: re-confirmed — still Netlify, not Vercel
+
+Came up again while discussing whether the Supabase backend work was
+blocking progress. To be clear: **switching to Vercel would not have
+helped with that** — Vercel and Netlify are both just static-file hosts;
+neither one provides a database or accounts. The actual blocker is that
+a Supabase project (a separate free service, unrelated to hosting) needs
+to be created — see `program-state.md`, Blocked section. Netlify stays
+the answer above.

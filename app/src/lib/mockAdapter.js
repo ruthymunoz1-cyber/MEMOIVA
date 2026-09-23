@@ -18,9 +18,12 @@ import {
   SEED_GAME_SCORES,
   SEED_COLORING_SAVES,
   SEED_FACILITATOR_NOTES,
+  SEED_SONGS,
 } from './seedData';
 
-const STORE_KEY = 'memoiva_mock_db_v1';
+// Bumped to v2 when the songs table was added — forces existing browsers
+// to reseed instead of running on a stale shape with no songs.
+const STORE_KEY = 'memoiva_mock_db_v2';
 const SESSION_KEY = 'memoiva_session_v1';
 
 // ---------------------------------------------------------------------------
@@ -38,6 +41,7 @@ function freshDb() {
     game_scores: SEED_GAME_SCORES,
     coloring_saves: SEED_COLORING_SAVES,
     facilitator_notes: SEED_FACILITATOR_NOTES,
+    songs: SEED_SONGS,
   };
 }
 
@@ -195,6 +199,23 @@ export async function getWeeklyContent(cohortId, weekNumber) {
       (w) => w.cohort_id === cohortId && w.week_number === weekNumber
     ) ?? null
   );
+}
+
+// ---------------------------------------------------------------------------
+// Songs (catalog + weekly signature song)
+// ---------------------------------------------------------------------------
+
+/** Catalog songs for a UI language ('es' | 'esl'), signature songs first. */
+export async function getSongs(language) {
+  await wait();
+  return loadDb()
+    .songs.filter((s) => s.language === language)
+    .sort((a, b) => Number(b.is_signature) - Number(a.is_signature));
+}
+
+export async function getSong(id) {
+  await wait();
+  return loadDb().songs.find((s) => s.id === id) ?? null;
 }
 
 // ---------------------------------------------------------------------------

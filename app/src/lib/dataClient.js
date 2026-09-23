@@ -38,6 +38,9 @@ export const getCohortParticipants = adapter.getCohortParticipants;
 
 export const getWeeklyContent = adapter.getWeeklyContent;
 
+export const getSongs = adapter.getSongs;
+export const getSong = adapter.getSong;
+
 export const getParticipantProgress = adapter.getParticipantProgress;
 export const getProgressForCohort = adapter.getProgressForCohort;
 export const submitCheckIn = adapter.submitCheckIn;

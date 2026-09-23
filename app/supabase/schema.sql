@@ -169,6 +169,43 @@ create policy "participant reads own enrollment" on public.cohort_participants
   for select using (participant_id = public.current_profile_id());
 
 -- ---------------------------------------------------------------------
+-- songs
+--
+-- Two kinds, distinguished by is_signature:
+--   - Signature songs (is_signature = true): MEMOIVA's own — original
+--     lyrics written by RAMP, recorded to a public-domain melody. One is
+--     assigned per week via weekly_content.signature_song_id (see below)
+--     — "songs every session" is a locked brand decision, not optional.
+--   - Catalog songs (is_signature = false): a browsable library of
+--     well-known public-domain songs in EN/ES, available anytime, not
+--     tied to a specific week.
+--
+-- audio_url is nullable — a song can exist here (title, lyrics) before
+-- RAMP has actually recorded it, so the weekly slot and the catalog
+-- listing are never blocked on production being finished. lyrics is an
+-- array of {text, start_seconds, end_seconds} for line-by-line sync;
+-- start/end are null until someone times the line against a real
+-- recording, which can only happen once that recording exists.
+-- ---------------------------------------------------------------------
+create table public.songs (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  language text not null check (language in ('es', 'esl')),
+  is_signature boolean not null default false,
+  audio_url text,
+  lyrics jsonb not null default '[]',
+  created_at timestamptz not null default now()
+);
+
+alter table public.songs enable row level security;
+
+create policy "any signed-in user reads songs" on public.songs
+  for select using (auth.uid() is not null);
+
+create policy "admin manages songs" on public.songs
+  for all using (public.current_role() = 'admin');
+
+-- ---------------------------------------------------------------------
 -- weekly_content
 -- ---------------------------------------------------------------------
 create table public.weekly_content (
@@ -180,6 +217,7 @@ create table public.weekly_content (
   vocabulary jsonb not null default '[]',
   identity_close_es text,
   identity_close_en text,
+  signature_song_id uuid references public.songs (id),
   unique (cohort_id, week_number)
 );
 

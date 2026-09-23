@@ -97,6 +97,67 @@ export const SEED_WEEKLY_CONTENT = [
     ],
     identity_close_es: 'Cada semana, mi mente crece más fuerte.',
     identity_close_en: 'Every week, my mind grows stronger.',
+    // Reserved slot for MEMOIVA's own signature song for this week — see
+    // "songs every session" in project-brief.md. Not written/recorded yet;
+    // see song-signature-w1 below and docs/app/song-library.md.
+    signature_song_id: 'song-signature-w1',
+  },
+];
+
+/**
+ * Songs — two kinds, matching supabase/schema.sql's `songs` table:
+ *   - is_signature: true  → MEMOIVA's own, one per week (reserved slot;
+ *     content pending real production — see docs/app/song-library.md)
+ *   - is_signature: false → browsable public-domain catalog, EN/ES,
+ *     available anytime. The one example below uses real, unambiguously
+ *     public-domain lyrics (published 1873, decades past any copyright
+ *     term) purely to prove the line-by-line sync UI works — it is a
+ *     placeholder, not a program content decision. audio_url is null for
+ *     everything here: no recordings exist yet. start_seconds/end_seconds
+ *     on the catalog example are illustrative pacing, not timed against a
+ *     real recording (that can only happen once one exists).
+ */
+export const SEED_SONGS = [
+  {
+    id: 'song-signature-w1',
+    title: '(Coming soon)',
+    language: 'esl',
+    is_signature: true,
+    audio_url: null,
+    lyrics: [],
+    created_at: daysAgo(14),
+  },
+  {
+    id: 'song-catalog-home-on-the-range',
+    title: 'Home on the Range',
+    language: 'esl',
+    is_signature: false,
+    audio_url: null,
+    lyrics: [
+      { text: 'Oh, give me a home where the buffalo roam,', start_seconds: 0, end_seconds: 4 },
+      { text: 'Where the deer and the antelope play,', start_seconds: 4, end_seconds: 8 },
+      { text: 'Where seldom is heard a discouraging word,', start_seconds: 8, end_seconds: 12 },
+      { text: 'And the skies are not cloudy all day.', start_seconds: 12, end_seconds: 16 },
+      { text: 'Home, home on the range,', start_seconds: 16, end_seconds: 20 },
+      { text: 'Where the deer and the antelope play;', start_seconds: 20, end_seconds: 24 },
+      { text: 'Where seldom is heard a discouraging word,', start_seconds: 24, end_seconds: 28 },
+      { text: 'And the skies are not cloudy all day.', start_seconds: 28, end_seconds: 32 },
+    ],
+    created_at: daysAgo(14),
+  },
+  {
+    id: 'song-catalog-cielito-lindo',
+    title: 'Cielito Lindo',
+    language: 'es',
+    is_signature: false,
+    audio_url: null,
+    lyrics: [
+      { text: 'Ay, ay, ay, ay,', start_seconds: 0, end_seconds: 3 },
+      { text: 'canta y no llores,', start_seconds: 3, end_seconds: 6 },
+      { text: 'porque cantando se alegran,', start_seconds: 6, end_seconds: 10 },
+      { text: 'cielito lindo, los corazones.', start_seconds: 10, end_seconds: 15 },
+    ],
+    created_at: daysAgo(14),
   },
 ];
 

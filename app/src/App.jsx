@@ -9,6 +9,9 @@ import ThisWeek from './pages/participant/ThisWeek';
 import Flashcards from './pages/participant/Flashcards';
 import MemoryGrid from './pages/participant/MemoryGrid';
 import ColoringStudio from './pages/participant/ColoringStudio';
+import SongLibrary from './pages/participant/SongLibrary';
+import SongPlayer from './pages/participant/SongPlayer';
+import Piano from './pages/participant/Piano';
 import MyProgress from './pages/participant/MyProgress';
 import CheckIn from './pages/participant/CheckIn';
 import MyCohorts from './pages/facilitator/MyCohorts';
@@ -25,6 +28,8 @@ function ParticipantShell({ children }) {
     { to: '/app/vocabulary', label: t('navVocabulary') },
     { to: '/app/games', label: t('navGames') },
     { to: '/app/coloring', label: t('navColoring') },
+    { to: '/app/songs', label: t('navSongs') },
+    { to: '/app/piano', label: t('navPiano') },
     { to: '/app/progress', label: t('navProgress') },
     { to: '/app/check-in', label: t('navCheckIn') },
   ];
@@ -66,6 +71,9 @@ export default function App() {
       <Route path="/app/vocabulary" element={<ParticipantShell><Flashcards /></ParticipantShell>} />
       <Route path="/app/games" element={<ParticipantShell><MemoryGrid /></ParticipantShell>} />
       <Route path="/app/coloring" element={<ParticipantShell><ColoringStudio /></ParticipantShell>} />
+      <Route path="/app/songs" element={<ParticipantShell><SongLibrary /></ParticipantShell>} />
+      <Route path="/app/songs/:songId" element={<ParticipantShell><SongPlayer /></ParticipantShell>} />
+      <Route path="/app/piano" element={<ParticipantShell><Piano /></ParticipantShell>} />
       <Route path="/app/progress" element={<ParticipantShell><MyProgress /></ParticipantShell>} />
       <Route path="/app/check-in" element={<ParticipantShell><CheckIn /></ParticipantShell>} />
 

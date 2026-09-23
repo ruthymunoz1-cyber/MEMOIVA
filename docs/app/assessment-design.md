@@ -1,71 +1,87 @@
 # MEMOIVA Pre/Post Instrument — Design Draft
 
-**Status:** Draft — structure proposed, needs founder review. Several items
-marked below need your actual creative content before this is final.
+**Status:** Structure approved; piano segment built in-app; most other
+segments still facilitator-administered outside the app. Several items
+marked below still need your actual creative content before this is
+final.
 
 This is the working replacement for the `assessment-design.md` reference
 document that was never uploaded to this repo (see `program-state.md`,
 Blocked section). If the original document turns up later, reconcile
 against it rather than assuming this draft wins.
 
-Per `PRD.md` §7: this instrument stays **external to the app for beta 1**
-(facilitator-administered, not built into the product yet). This document
-designs the actual instrument; building it into the app is Phase 2 — see
-§6 below on timing.
+Originally scoped (per `PRD.md` §7) to stay entirely external to the app
+for beta 1. **Superseded 2026-09-23** — founder direction is to build now
+rather than defer to Phase 2 (see §6). Piano is the first segment
+actually built into the app; the rest remain facilitator-administered for
+now, not because of a timing decision but because their content (song,
+movement routine, video) isn't supplied yet.
 
 ---
 
 ## 1. What it measures and why (founder-directed, 2026-09-23)
 
-Six areas, matching the program's three pillars (Language · Brain Health ·
-Music) plus self-report:
+Seven areas, matching the program's three pillars (Language · Brain
+Health · Music) plus self-report:
 
 1. Vocabulary recognition/recall (**Language**)
 2. Conversational/functional ability (**Language**)
 3. Song recall (**Music**)
 4. Coordinated movement / seated "chair dancing" (**Brain Health**)
 5. General cognitive engagement (**Brain Health**)
-6. Confidence & self-perception (self-report, all three pillars)
+6. Piano — color-note matching (**Music / Brain Health**, added
+   2026-09-23, see §3a and `piano-lessons.md`)
+7. Confidence & self-perception (self-report, all three pillars)
 
 **Framing rule, non-negotiable (per project-brief.md §6, FTC/Lumosity
 caution):** nothing here is scored as pass/fail or presented as measuring
 cognitive decline. Everything is descriptive ("recognized 7 of 10 words,"
 "participated fully") and encouraging, never diagnostic language.
 
-## 2. Structure — target 8–10 minutes, same shape for both tracks
+## 2. Structure — same shape for both tracks
 
-Same structure and timing for MEMOIVA Circle Español and Círculo MEMOIVA en
-Inglés — only the language of the content mirrors. Administered week 1
-(baseline) and week 8 (comparison), by the facilitator, in person over
-Zoom, with voice used to capture answers from students who can't write or
-aren't comfortable with a keyboard (see §5 on how that need gets met).
+Same structure for MEMOIVA Circle Español and Círculo MEMOIVA en Inglés —
+only the language of the content mirrors. Administered week 1 (baseline)
+and week 8 (comparison), by the facilitator, in person over Zoom, with
+voice used to capture answers from students who can't write or aren't
+comfortable with a keyboard (see §5 on how that need gets met).
 
-| # | Segment | ~Time | Pillar | Format |
-|---|---|---|---|---|
-| 1 | Warm welcome + song moment | 1 min | Music | Facilitator leads a song; participation noted, not scored |
-| 2 | Seated movement | 1–1.5 min | Brain Health | Facilitator leads a simple seated/hand-movement sequence; participation noted, not scored |
-| 3 | Vocabulary recall | 2–3 min | Language | Facilitator says/shows each item, student answers aloud; score = # recognized out of 10 |
-| 4 | One conversational prompt | 1 min | Language | Open prompt ("Tell me your name and one thing about your home"); rubric: no attempt / attempted / clear response — not right/wrong |
-| 5 | Confidence & self-perception | 2 min | Self-report | 6 short statements, 1–5 scale, read aloud if needed |
-| 6 | Closing moment | 1 min | Engagement | A calm wind-down (coloring or similar); reaction only ("how did that feel?"), not scored |
+**Timing update, 2026-09-23:** the original 8–10 minute cap is lifted per
+founder direction, now that piano is part of the instrument — length is
+no longer the constraint. The table below is no longer time-boxed;
+segments run as long as each actually takes.
 
-Total: ~8–10 minutes, matching what you asked for.
+| # | Segment | Pillar | Format |
+|---|---|---|---|
+| 1 | Warm welcome + song moment | Music | Facilitator leads a song; participation noted, not scored |
+| 2 | Seated movement | Brain Health | Facilitator leads a simple seated/hand-movement sequence; participation noted, not scored |
+| 3 | Vocabulary recall | Language | Facilitator says/shows each item, student answers aloud; score = # recognized out of 10 |
+| 4 | One conversational prompt | Language | Open prompt ("Tell me your name and one thing about your home"); rubric: no attempt / attempted / clear response — not right/wrong |
+| 5 | Piano — color-note matching | Music / Brain Health | In-app: student matches colored keys to the target sequence (see §3a); score = notes matched in order |
+| 6 | Confidence & self-perception | Self-report | 6 short statements, 1–5 scale, read aloud if needed |
+| 7 | Closing moment | Engagement | A calm wind-down (coloring or similar); reaction only ("how did that feel?"), not scored |
 
-### What's already built and can be reused (no new engineering)
+### What's already built and can be reused
 
 - **Segment 3 could double as a scored round of the existing Memory Grid
   game** for the "general cognitive engagement" measure — same
   infrastructure, no new game to build. Recommend using the game's
   existing score (week 1 vs. week 8) as that data point rather than
   inventing a separate cognitive test.
-- **Segment 6** can literally be the existing Coloring Studio — a calm
+- **Segment 5 (piano) is built** — `Piano.jsx`, see §3a and
+  `piano-lessons.md`.
+- **Segment 7** can literally be the existing Coloring Studio — a calm
   close, already built, already brand-appropriate.
 
-### What's new engineering (not built yet — see §6 on timing)
+### What's new engineering, not built yet
 
 - Voice capture for segments 3–4 (see §5)
 - Any video content for segments 1–2 (see §4, needs your input on what
   video)
+- In-app builds of segments 1 (song — see §3b/`song-library.md`) and 2
+  (movement) — only the piano segment (5) is actually wired into the app
+  as a testable activity so far; the rest of the instrument is still
+  facilitator-administered outside the app per §6.
 
 ## 3. Vocabulary recall — draft 10-item list
 
@@ -95,6 +111,25 @@ or approve.
 For the English track (Círculo MEMOIVA en Inglés), mirror the same 10
 concepts in the other direction once you confirm the list.
 
+## 3a. Piano segment — built, see `piano-lessons.md`
+
+Added 2026-09-23 per founder direction, using an on-screen color-coded
+virtual keyboard (tap/click, no physical instrument). Full design
+rationale — including why it isn't built on Stephen Ridley's specific
+method (paid, proprietary, and not something that could be verified as
+"Piano by Pictures") — is in `piano-lessons.md`. Short version: the color
+scheme and first exercise are working placeholders using a
+non-proprietary, widely-used convention, pending your review.
+
+## 3b. Song segment — resolved, see `song-library.md`
+
+Segment 1's "which song" question (§4 below, originally open) is
+resolved: MEMOIVA records its own vocal performances over public-domain
+melodies, for both the weekly signature song and a browsable public-
+domain catalog. Full design, including a legal note on recordings vs.
+compositions being public domain, is in `song-library.md`. The specific
+song for segment 1 is still pending — see that doc's open items.
+
 ## 4. Needs your actual creative content — not something I should invent
 
 These are proprietary/creative decisions, not engineering ones, and
@@ -102,8 +137,9 @@ inventing them myself risks contradicting whatever you already have in
 mind (the same reason character names, the Identity Close, and session
 structure are locked, founder-owned content per `project-brief.md`):
 
-- **The song** for segment 1 — is there already a "circle song" or
-  opening song used every session? If not, what should it be?
+- **The song** for segment 1 — resolved as "RAMP's own recording of a
+  public-domain melody," see §3b. Still needed: the actual song itself
+  (see `song-library.md` open items).
 - **The movement routine** for segment 2 — specific seated/hand-movement
   sequence (a "clap-clap-tap" pattern? something else?)
 - **The 6 confidence/self-perception statements** — I drafted a
@@ -142,26 +178,30 @@ especially with accents and background noise on a Zoom call — this needs
 a human check, not silent auto-scoring). This is new engineering, not
 something that exists in the app today.
 
-## 6. Timing — recommendation: design now, build after beta 1 launches
+## 6. Timing — superseded, 2026-09-23: building now, not deferred to Phase 2
 
-This instrument depends on content only you can supply (§4), and its
-engineering (voice capture, any video, wiring into the app) is real new
-scope beyond what `PRD.md` §6 approved for the beta-1 timeline. Building
-it now would compete with finishing the Supabase backend — the thing
-actually blocking a real cohort from starting.
+The original recommendation here was to design this now and build it
+after beta 1, so it wouldn't compete with the Supabase backend work.
+**Founder direction, 2026-09-23: build now instead** — accepting that
+this pushes the beta timeline past the original 4–6 week target. Piano
+(§3a) and the song library mechanism (§3b) are built as a result. Voice
+capture (§5) and video content (§4) are not yet — still real, not-yet-
+scoped engineering work.
 
-**Recommendation:** finalize the content in this document with you now,
-administer it the low-tech way for beta 1 (facilitator with a
-paper/tablet checklist, no in-app voice capture yet), and build the
-in-app version as Phase 2 once beta 1 is running and the Supabase
-backend is live. Flag if you'd rather pull this into the current
-sprint instead — it's your call, just noting the tradeoff.
+One thing that hasn't changed: **the actual Supabase project still needs
+to be created by you** (see `program-state.md`, Blocked section) — no
+amount of building here substitutes for that step, and it's still what's
+actually standing between the app and a real cohort using any of this
+with real, persistent, multi-device data.
 
 ## 7. Open items before this is final
 
 1. Approve or edit the 4 draft vocabulary items (§3)
-2. Supply the song (§4)
+2. Supply the actual song (§3b / `song-library.md`)
 3. Supply the movement routine (§4)
 4. Approve or edit the 6 confidence statements (§4)
 5. Describe what the video content should actually show (§4)
-6. Confirm the Phase 2 timing recommendation in §6, or say you want it sooner
+6. Review/replace the piano color scheme and first lesson (§3a /
+   `piano-lessons.md`)
+7. Create the Supabase project — see `program-state.md`, still the real
+   blocker regardless of how much else gets built

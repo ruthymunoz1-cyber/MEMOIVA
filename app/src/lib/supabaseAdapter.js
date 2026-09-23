@@ -170,6 +170,25 @@ export async function getWeeklyContent(cohortId, weekNumber) {
 }
 
 // ---------------------------------------------------------------------------
+// Songs (catalog + weekly signature song)
+// ---------------------------------------------------------------------------
+
+/** Catalog songs for a UI language ('es' | 'esl'), signature songs first. */
+export async function getSongs(language) {
+  return unwrap(
+    await supabase
+      .from('songs')
+      .select('*')
+      .eq('language', language)
+      .order('is_signature', { ascending: false })
+  );
+}
+
+export async function getSong(id) {
+  return unwrap(await supabase.from('songs').select('*').eq('id', id).maybeSingle());
+}
+
+// ---------------------------------------------------------------------------
 // Participant progress / weekly check-in
 // ---------------------------------------------------------------------------
 

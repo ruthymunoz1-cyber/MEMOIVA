@@ -3,7 +3,11 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-07-15 (docs transfer + app build verification session)_
+_Last updated: 2026-09-23 (PRD drafted)_
+
+**Timeline note:** the project brief's "week of July 27, 2026" beta launch
+date has passed with no cohort started. New target: a real beta cohort
+within 4–6 weeks of 2026-09-23 (see `PRD.md` §2, §6 for what that requires).
 
 ## Built and verified
 
@@ -20,9 +24,17 @@ _Last updated: 2026-07-15 (docs transfer + app build verification session)_
 - **Database** — localStorage mock in `app/src/lib/dataClient.js`; row shapes mirror the planned Supabase schema exactly
 - **Content** — one seeded cohort, week 1 only ("Mi hogar / My Home")
 
+## Planning
+
+- **PRD written** (`PRD.md`) — covers scope, timeline, open decisions.
+  Needs founder sign-off, especially the recommendation in PRD §5 (app used
+  between sessions, not live during Zoom) and the assessment recommendation
+  in PRD §7 (kept out of app v1).
+
 ## Not started
 
-- Supabase project (auth + Postgres) and the dataClient swap
+- Supabase project (auth + Postgres) and the dataClient swap — now a hard
+  v1 requirement per `PRD.md` §6, not just a "someday" item
 - Deploying the app itself (website is deployed; app is not yet) — see `deployment-and-hosting.md`
 - PIN/preview gate for stakeholder demos
 - Real curriculum content beyond week 1 (blocked on curriculum docs — see below)

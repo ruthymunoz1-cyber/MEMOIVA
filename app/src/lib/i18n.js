@@ -10,12 +10,23 @@ export const STRINGS = {
     welcomeTitle: 'Welcome to MEMOIVA',
     welcomeBody:
       'A warm, weekly program to keep your mind active and your confidence growing. Choose your language, then pick a demo role to explore.',
+    welcomeBodyLive:
+      'A warm, weekly program to keep your mind active and your confidence growing. Choose your language, then sign in with your email.',
     chooseLanguage: 'Choose your language',
     chooseRole: 'Choose your demo role',
     participant: 'Participant',
     facilitator: 'Facilitator',
     admin: 'Admin',
     signOut: 'Sign out',
+    // Real (Supabase) login
+    signInTitle: 'Sign in',
+    emailLabel: 'Email address',
+    emailPlaceholder: 'you@example.com',
+    sendLoginLink: 'Email me a login link',
+    sendingLoginLink: 'Sending…',
+    loginLinkSent: 'Check your email — we sent a link to {email}. Tap it on this device to sign in.',
+    loginLinkError: "We couldn't send that link. Please check the email address and try again.",
+    noAccountFound: "We couldn't find an account for that email. Please ask your facilitator to add you.",
     // Nav
     navHome: 'Home',
     navThisWeek: 'This Week',
@@ -97,12 +108,23 @@ export const STRINGS = {
     welcomeTitle: 'Bienvenida a MEMOIVA',
     welcomeBody:
       'Un programa semanal y acogedor para mantener tu mente activa y tu confianza creciendo. Elige tu idioma y luego un rol de demostración para explorar.',
+    welcomeBodyLive:
+      'Un programa semanal y acogedor para mantener tu mente activa y tu confianza creciendo. Elige tu idioma y luego inicia sesión con tu correo.',
     chooseLanguage: 'Elige tu idioma',
     chooseRole: 'Elige tu rol de demostración',
     participant: 'Participante',
     facilitator: 'Facilitador(a)',
     admin: 'Administrador(a)',
     signOut: 'Cerrar sesión',
+    // Inicio de sesión real (Supabase)
+    signInTitle: 'Iniciar sesión',
+    emailLabel: 'Correo electrónico',
+    emailPlaceholder: 'tu@ejemplo.com',
+    sendLoginLink: 'Enviarme un enlace de acceso',
+    sendingLoginLink: 'Enviando…',
+    loginLinkSent: 'Revisa tu correo — enviamos un enlace a {email}. Ábrelo en este dispositivo para iniciar sesión.',
+    loginLinkError: 'No pudimos enviar ese enlace. Verifica el correo e inténtalo de nuevo.',
+    noAccountFound: 'No encontramos una cuenta con ese correo. Pide a tu facilitador(a) que te agregue.',
     navHome: 'Inicio',
     navThisWeek: 'Esta semana',
     navVocabulary: 'Vocabulario',

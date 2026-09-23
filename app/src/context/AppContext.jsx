@@ -28,6 +28,19 @@ export function AppProvider({ children }) {
     };
   }, []);
 
+  // With a real backend, a sign-in can complete asynchronously (the person
+  // clicks the magic link in their email and lands back on the site) —
+  // this keeps `user` in sync with that, not just the initial page load.
+  // onAuthChange is a no-op in mock mode (see mockAdapter.js).
+  useEffect(() => {
+    const unsubscribe = dataClient.onAuthChange(async () => {
+      const u = await dataClient.getCurrentUser();
+      setUser(u);
+      if (u?.preferred_language) setLanguageState(u.preferred_language);
+    });
+    return unsubscribe;
+  }, []);
+
   const signIn = useCallback(
     async (userId) => {
       const u = await dataClient.signInAs(userId);

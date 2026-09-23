@@ -1,6 +1,7 @@
 # MEMOIVA App — Product Requirements Document (PRD)
 
-**Status:** Draft v1 — needs founder review and sign-off
+**Status:** Approved v1 — founder signed off 2026-09-23 (§5, §6 auth approach,
+and §7 all confirmed as written)
 **Owner:** Ruthy Muñoz
 **Last updated:** 2026-09-23
 
@@ -83,18 +84,15 @@ user-facing copy. The current demo role-picker page labels a button
 "Participant," which is acceptable for a dev-only demo screen but should
 not carry over once real login replaces it.)
 
-## 5. Open product decision: how does the app relate to the live Zoom session?
+## 5. How the app relates to the live Zoom session — DECIDED
 
-This wasn't settled going in, so here's the recommendation rather than an
-assumption:
-
-**Recommendation: the app is a between-session companion, not a live-session
-tool.** Students use it on their own time — practicing vocabulary, playing
-the memory game, checking in — before the next Zoom session. The facilitator
+**The app is a between-session companion, not a live-session tool.**
+Students use it on their own time — practicing vocabulary, playing the
+memory game, checking in — before the next Zoom session. The facilitator
 reviews it before or between sessions to see how her roster is doing, not
-during the live class. Nothing about the app assumes screen-sharing,
-Zoom integration, or real-time use, and nothing in the current build
-requires it.
+during the live class. Nothing about the app assumes screen-sharing, Zoom
+integration, or real-time use, and nothing in the current build requires
+it.
 
 Why: the program is fundamentally a *facilitated, human-led* experience —
 that's MEMOIVA's stated advantage over software-only competitors like Lingo
@@ -103,13 +101,13 @@ real-time sync, screen-share-friendly UI, and facilitator-led pacing
 features — a materially bigger scope that doesn't fit a 4–6 week runway and
 isn't needed for the app's core jobs in §3.
 
-**This needs your explicit sign-off** — it changes what "done" means for v1.
-If live-session use turns out to matter, that becomes a Phase 2 scope
-decision, not a v1 one.
+**Confirmed by Ruthy, 2026-09-23.** If live-session use turns out to
+matter later, that's a Phase 2 scope decision, revisited with real beta
+feedback — not something to reopen speculatively.
 
 ## 6. Scope for v1 (real beta, not just demo)
 
-### Hard requirement: replace the mock data layer with a real shared database
+### Hard requirement (confirmed): replace the mock data layer with a real shared database
 
 The single biggest gap between today's build and something a real cohort
 can use: `localStorage` is scoped to one browser. A facilitator opening the
@@ -118,15 +116,14 @@ phone — the core facilitator value in §3 (roster visibility) literally
 cannot work without a shared backend. This has to close before beta,
 regardless of anything else.
 
-**Recommendation on auth specifically:** don't build a full self-serve
-signup flow. With cohorts capped at 6 students, use **Supabase Auth with
-email magic links** (no passwords to remember or reset — friendlier for a
-50+ audience) and have the facilitator/admin add each real student's email
-by hand before the cohort starts. This gets a real, working, multi-device
-backend live within the timeline without building account-management UI
-that a cohort of 6 doesn't need yet. `dataClient.js` was already written so
-this swap touches one file, not the app's components (see
-`app-architecture.md`).
+**Auth approach (confirmed):** not a full self-serve signup flow. With
+cohorts capped at 6 students, use **Supabase Auth with email magic links**
+(no passwords to remember or reset — friendlier for a 50+ audience) and
+have the facilitator/admin add each real student's email by hand before
+the cohort starts. This gets a real, working, multi-device backend live
+within the timeline without building account-management UI that a cohort
+of 6 doesn't need yet. `dataClient.js` was already written so this swap
+touches one file, not the app's components (see `app-architecture.md`).
 
 ### Everything else already in the v1 build carries forward as-is
 
@@ -144,11 +141,11 @@ their data source, not rebuilding them.
 - Content for weeks 2–8 (a curriculum/content workstream, not an app
   engineering one — flag separately)
 
-## 7. The pre/post cognitive assessment — recommendation: keep it out of the app for v1
+## 7. The pre/post cognitive assessment — DECIDED: kept out of the app for v1
 
 The pricing in the project brief includes a "pre/post cognitive assessment
-+ results" for every student. Recommendation: **do not build this into the
-app in v1.** Two reasons:
++ results" for every student. **Confirmed: this is not built into the app
+in v1.** Two reasons:
 
 1. **Compliance risk.** The project brief itself is careful to say the
    program's tools are "educational tools, not clinical diagnostic
@@ -232,16 +229,17 @@ completing that plan's **Stage 2** before the first real cohort — the PIN
 gate in Stage 1 is fine for stakeholder preview, but not sufficient once
 real students' check-in data is involved (see §10).
 
-## 13. Open questions for you before this PRD is final
+## 13. Remaining open items
 
-1. **Sign off on §5** — is between-session use the right model, or does
-   something need to happen live during Zoom?
-2. **New target beta date** — "4–6 weeks from now" is a window, not a
-   locked date. Worth picking an actual date once you know facilitator/
-   cohort readiness.
-3. **Assessment instrument** — once chosen, tells us what (if anything)
+§5, the auth approach in §6, and §7 are all confirmed — the PRD is approved
+as written. What's still genuinely open, and doesn't block starting work:
+
+1. **New target beta date** — "4–6 weeks from now" (late Oct–early Nov
+   2026) is still a window, not a locked date. Worth picking an actual
+   date once facilitator/cohort readiness is known.
+2. **Assessment instrument** — once chosen, tells us what (if anything)
    the app needs to display in Phase 2.
-4. Anything in §11 that's a wrong assumption.
+3. Anything in §11 that turns out to be a wrong assumption.
 
 ---
 

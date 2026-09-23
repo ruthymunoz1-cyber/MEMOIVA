@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-09-23 (PRD drafted)_
+_Last updated: 2026-09-23 (PRD approved)_
 
 **Timeline note:** the project brief's "week of July 27, 2026" beta launch
 date has passed with no cohort started. New target: a real beta cohort
@@ -26,15 +26,18 @@ within 4–6 weeks of 2026-09-23 (see `PRD.md` §2, §6 for what that requires).
 
 ## Planning
 
-- **PRD written** (`PRD.md`) — covers scope, timeline, open decisions.
-  Needs founder sign-off, especially the recommendation in PRD §5 (app used
-  between sessions, not live during Zoom) and the assessment recommendation
-  in PRD §7 (kept out of app v1).
+- **PRD approved** (`PRD.md`) — founder signed off 2026-09-23. Confirmed:
+  app is a between-session companion (not used live during Zoom, PRD §5),
+  auth is Supabase magic links with hand-added students (PRD §6), and the
+  pre/post assessment stays out of the app for v1 (PRD §7). Still open:
+  locking an actual beta date, and the assessment instrument choice (PRD
+  §13) — neither blocks starting the work below.
 
 ## Not started
 
-- Supabase project (auth + Postgres) and the dataClient swap — now a hard
-  v1 requirement per `PRD.md` §6, not just a "someday" item
+- Supabase project (auth + Postgres) and the dataClient swap — approved,
+  confirmed hard v1 requirement per `PRD.md` §6. This is the next real
+  piece of work.
 - Deploying the app itself (website is deployed; app is not yet) — see `deployment-and-hosting.md`
 - PIN/preview gate for stakeholder demos
 - Real curriculum content beyond week 1 (blocked on curriculum docs — see below)

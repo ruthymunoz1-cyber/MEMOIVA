@@ -3,7 +3,13 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-09-24 (coloring studio redesigned; movie-talk placeholder drafted)_
+_Last updated: 2026-09-24 (PDF export saved)_
+
+**PDF export:** `docs/app/MEMOIVA-Program-Docs.pdf` is a point-in-time,
+shareable snapshot (Week 1 curriculum + PRD + assessment + song library +
+piano lessons + build status), generated 2026-09-24. It does not
+auto-update — regenerate it on request once the source docs it pulls
+from have moved on, rather than assuming it's current.
 
 **Timeline note:** the project brief's "week of July 27, 2026" beta launch
 date has passed with no cohort started. The 4–6 week target set earlier

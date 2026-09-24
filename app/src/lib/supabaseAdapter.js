@@ -280,29 +280,30 @@ export async function saveGameScore({
 // Coloring saves
 // ---------------------------------------------------------------------------
 
-export async function getColoringProgress(participantId, weekNumber) {
+export async function getColoringProgress(participantId, pageId) {
   return unwrap(
     await supabase
       .from('coloring_saves')
       .select('*')
       .eq('participant_id', participantId)
-      .eq('week_number', weekNumber)
+      .eq('page_id', pageId)
       .maybeSingle()
   );
 }
 
-export async function saveColoringProgress({ participantId, weekNumber, imageData }) {
+export async function saveColoringProgress({ participantId, pageId, weekNumber, imageData }) {
   return unwrap(
     await supabase
       .from('coloring_saves')
       .upsert(
         {
           participant_id: participantId,
-          week_number: weekNumber,
+          page_id: pageId,
+          week_number: weekNumber ?? null,
           image_data: imageData,
           saved_at: new Date().toISOString(),
         },
-        { onConflict: 'participant_id,week_number' }
+        { onConflict: 'participant_id,page_id' }
       )
       .select()
       .single()

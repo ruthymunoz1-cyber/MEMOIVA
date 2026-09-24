@@ -308,23 +308,27 @@ export async function saveGameScore({
 
 // ---------------------------------------------------------------------------
 // Coloring saves (v1: localStorage-only persistence is correct)
+//
+// pageId identifies which coloring page/pattern ('week-1', or an evergreen
+// id like 'calm-mandala' — see docs/app/coloring-studio.md). weekNumber is
+// kept alongside for curriculum-themed pages; null for evergreen patterns.
 // ---------------------------------------------------------------------------
 
-export async function getColoringProgress(participantId, weekNumber) {
+export async function getColoringProgress(participantId, pageId) {
   await wait();
   return (
     loadDb().coloring_saves.find(
-      (c) => c.participant_id === participantId && c.week_number === weekNumber
+      (c) => c.participant_id === participantId && c.page_id === pageId
     ) ?? null
   );
 }
 
 /** image_data: JSON-serializable fill state ({ regionId: hexColor }). */
-export async function saveColoringProgress({ participantId, weekNumber, imageData }) {
+export async function saveColoringProgress({ participantId, pageId, weekNumber, imageData }) {
   await wait();
   const db = loadDb();
   const existing = db.coloring_saves.find(
-    (c) => c.participant_id === participantId && c.week_number === weekNumber
+    (c) => c.participant_id === participantId && c.page_id === pageId
   );
   if (existing) {
     existing.image_data = imageData;
@@ -335,7 +339,8 @@ export async function saveColoringProgress({ participantId, weekNumber, imageDat
   const row = {
     id: uid('coloring'),
     participant_id: participantId,
-    week_number: weekNumber,
+    page_id: pageId,
+    week_number: weekNumber ?? null,
     image_data: imageData,
     saved_at: new Date().toISOString(),
   };

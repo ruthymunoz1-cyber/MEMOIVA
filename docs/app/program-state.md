@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-09-23 (song library + piano lessons built)_
+_Last updated: 2026-09-24 (coloring studio redesigned; movie-talk placeholder drafted)_
 
 **Timeline note:** the project brief's "week of July 27, 2026" beta launch
 date has passed with no cohort started. The 4–6 week target set earlier
@@ -43,6 +43,15 @@ nothing else here substitutes for that step (see Blocked below).
   content are placeholders pending founder review — see
   `piano-lessons.md`, including why it wasn't built on Stephen Ridley's
   specific (paid, proprietary) method.
+- **Coloring Studio, redesigned** — `ColoringStudio.jsx` now offers two
+  patterns via a tab row: the original "Home" scene, and a new "Calm
+  Pattern" — a generated mandala (37 fillable regions), added because the
+  in-app activity needed to read as adult/calming rather than a themed
+  scene. Progress now saves per pattern (`coloring_saves.page_id`, was
+  `week_number`-only) so the two never overwrite each other. Screenshot-
+  verified. See `coloring-studio.md` for why this is separate from the
+  printed coloring book (that one has characters and is a print-only
+  deliverable, not app scope).
 
 ## Mocked (demo mode — active until Supabase credentials are supplied)
 
@@ -62,6 +71,12 @@ nothing else here substitutes for that step (see Blocked below).
   (song, movement, video, voice capture) remain facilitator-administered
   outside the app because their content isn't supplied yet, not because
   of a timing decision. See that doc's §7 checklist.
+- **Movie talk / story characters — placeholder only** (`movie-talk-story.md`,
+  2026-09-24): founder is still deciding the actual approach ("will get
+  back to you"). No app feature built or scoped — this is a structure +
+  placeholder-persona document only, explicitly not a production plan.
+  Robert/Elena/Carlos are the only real, locked fact (from
+  `project-brief.md`); everything else in that doc is a stand-in.
 
 ## Not started
 
@@ -95,7 +110,12 @@ nothing else here substitutes for that step (see Blocked below).
   Stephen Ridley's Ridley Academy and Gospel on the Go Piano's "Piano by
   Pictures" — both real, both paid, both left alone for IP reasons — see
   that doc §2.)
-- **Reference docs re-upload** — pedagogy.md, character-system.md, short-movie-talks.md, SKILL.md, file-structure.md, and both .docx specs were shared only with a previous Claude session and are not in GitHub. Attach them in a session and have them committed to `docs/app/`. Until then, curriculum-content work (beyond what's in `assessment-design.md` and week 1) should not proceed (risk of contradicting locked design decisions). Note: `assessment-design.md` itself has now been reconstructed as a working draft (2026-09-23) — if the original file turns up, reconcile against it rather than assuming the draft wins.
+- **Reference docs re-upload** — pedagogy.md, character-system.md, short-movie-talks.md, SKILL.md, file-structure.md, and both .docx specs were shared only with a previous Claude session and are not in GitHub. Attach them in a session and have them committed to `docs/app/`. Until then, curriculum-content work (beyond what's in `assessment-design.md`, `movie-talk-story.md`, and week 1) should not proceed (risk of contradicting locked design decisions). Note: `assessment-design.md` and `movie-talk-story.md` have both now been reconstructed as working drafts — if either original file turns up, reconcile against it rather than assuming the draft wins.
+- **Movie talk direction** — founder needs to decide format and confirm
+  or replace the placeholder characters before this becomes real work.
+  See `movie-talk-story.md` §5.
+- **Printed coloring book** — separate production workstream (design/
+  print, not app code) once ready to start. See `coloring-studio.md`.
 
 ## Standing rules
 

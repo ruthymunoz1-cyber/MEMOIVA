@@ -285,14 +285,21 @@ create policy "participant manages own scores" on public.game_scores
 
 -- ---------------------------------------------------------------------
 -- coloring_saves (private to the student + admin — not shown to facilitators)
+--
+-- page_id identifies which coloring page/pattern this save is for —
+-- 'week-1', 'week-2', ... for curriculum-themed pages, or an evergreen
+-- id like 'calm-mandala' for patterns not tied to a specific week (see
+-- docs/app/coloring-studio.md). week_number stays for curriculum-themed
+-- pages' own reference; null for evergreen patterns.
 -- ---------------------------------------------------------------------
 create table public.coloring_saves (
   id uuid primary key default gen_random_uuid(),
   participant_id uuid not null references public.users (id) on delete cascade,
-  week_number integer not null,
+  page_id text not null,
+  week_number integer,
   image_data jsonb not null default '{}',
   saved_at timestamptz not null default now(),
-  unique (participant_id, week_number)
+  unique (participant_id, page_id)
 );
 
 alter table public.coloring_saves enable row level security;

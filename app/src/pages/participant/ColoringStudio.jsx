@@ -1,19 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import useParticipantData from '../../lib/useParticipantData';
 import * as dataClient from '../../lib/dataClient';
 
 /**
- * Coloring Studio — SVG fill-by-tap. One demo illustration (house, sun,
- * tree, flower) with 10 fillable <path> regions. Pick a swatch, tap a
- * region to fill it. Save persists fill state via the adapter (localStorage
- * in v1); Download renders the SVG to canvas and exports a PNG.
+ * Coloring Studio — SVG fill-by-tap, one pattern at a time picked from a
+ * tab row. Two patterns in v1:
+ *   - "Home" — the Week 1 vocabulary scene (house, sun, tree, flower),
+ *     unchanged from the original v1 build.
+ *   - "Calm Pattern" — an adult, dignity-forward mandala for a calming/
+ *     brain-health moment, not a cartoon scene. Added per founder
+ *     direction: the app's coloring activity should read as suitable for
+ *     an adult audience, not just a themed illustration. See
+ *     docs/app/coloring-studio.md.
+ *
+ * The character-illustrated coloring BOOK is a separate, print-only
+ * deliverable — not part of the app. See that doc for why.
+ *
+ * Save/Download work the same for either pattern; progress is keyed by
+ * pattern (pageId), so switching patterns never loses the other one's work.
  */
 
 const OUTLINE = '#1A2B4C';
 
-// Region ids + path data. Order matters (later paths draw on top).
-const REGIONS = [
+// --- "Home" pattern: unchanged from v1 -------------------------------------
+const HOME_REGIONS = [
   { id: 'ground', label: 'Ground', d: 'M 0 260 H 400 V 300 H 0 Z' },
   { id: 'sun', label: 'Sun', d: 'M 302 55 a 28 28 0 1 0 56 0 a 28 28 0 1 0 -56 0 Z' },
   { id: 'house', label: 'House wall', d: 'M 60 160 H 200 V 260 H 60 Z' },
@@ -24,6 +35,73 @@ const REGIONS = [
   { id: 'crown', label: 'Tree top', d: 'M 225 162 a 40 40 0 1 0 80 0 a 40 40 0 1 0 -80 0 Z' },
   { id: 'petals', label: 'Flower petals', d: 'M 332 232 a 18 18 0 1 0 36 0 a 18 18 0 1 0 -36 0 Z' },
   { id: 'center', label: 'Flower center', d: 'M 342 232 a 8 8 0 1 0 16 0 a 8 8 0 1 0 -16 0 Z' },
+];
+
+// --- "Calm Pattern": a generated mandala (3 rings + center) ----------------
+// Symmetric, geometric, no characters or scene — deliberately adult in
+// register. Regions computed rather than hand-drawn so the pattern stays
+// mathematically even.
+function polar(cx, cy, r, deg) {
+  const rad = ((deg - 90) * Math.PI) / 180;
+  return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+}
+
+function wedgePath(cx, cy, rInner, rOuter, startDeg, endDeg) {
+  const [x1, y1] = polar(cx, cy, rOuter, startDeg);
+  const [x2, y2] = polar(cx, cy, rOuter, endDeg);
+  const large = endDeg - startDeg > 180 ? 1 : 0;
+  if (rInner === 0) {
+    return `M ${cx} ${cy} L ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2} Z`;
+  }
+  const [x3, y3] = polar(cx, cy, rInner, endDeg);
+  const [x4, y4] = polar(cx, cy, rInner, startDeg);
+  return `M ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rInner} ${rInner} 0 ${large} 0 ${x4} ${y4} Z`;
+}
+
+function circlePath(cx, cy, r) {
+  return `M ${cx - r} ${cy} A ${r} ${r} 0 1 0 ${cx + r} ${cy} A ${r} ${r} 0 1 0 ${cx - r} ${cy} Z`;
+}
+
+function buildMandalaRegions() {
+  const cx = 200;
+  const cy = 200;
+  const regions = [{ id: 'center', label: 'Center', d: circlePath(cx, cy, 30) }];
+  const rings = [
+    { name: 'inner', count: 8, rInner: 30, rOuter: 90 },
+    { name: 'middle', count: 12, rInner: 90, rOuter: 150 },
+    { name: 'outer', count: 16, rInner: 150, rOuter: 195 },
+  ];
+  rings.forEach(({ name, count, rInner, rOuter }) => {
+    for (let i = 0; i < count; i++) {
+      const startDeg = (360 / count) * i;
+      const endDeg = (360 / count) * (i + 1);
+      regions.push({
+        id: `${name}-${i}`,
+        label: `${name} segment ${i + 1}`,
+        d: wedgePath(cx, cy, rInner, rOuter, startDeg, endDeg),
+      });
+    }
+  });
+  return regions;
+}
+
+const PATTERNS = [
+  {
+    id: 'home',
+    pageId: 'week-1',
+    labelKey: 'coloringPatternHome',
+    ariaLabel: 'Coloring picture: a house with a sun, a tree, and a flower',
+    viewBox: '0 0 400 300',
+    regions: HOME_REGIONS,
+  },
+  {
+    id: 'calm',
+    pageId: 'calm-mandala',
+    labelKey: 'coloringPatternCalm',
+    ariaLabel: 'Coloring picture: a calming circular mandala pattern',
+    viewBox: '0 0 400 400',
+    regions: buildMandalaRegions(),
+  },
 ];
 
 const PALETTE = [
@@ -40,22 +118,26 @@ const PALETTE = [
 export default function ColoringStudio() {
   const { user, t } = useApp();
   const { loading, cohort } = useParticipantData();
+  const [patternId, setPatternId] = useState('home');
   const [fills, setFills] = useState({});
   const [selected, setSelected] = useState(PALETTE[4].hex);
   const [saved, setSaved] = useState(false);
   const svgRef = useRef(null);
   const week = cohort?.current_week ?? 1;
 
+  const pattern = useMemo(() => PATTERNS.find((p) => p.id === patternId), [patternId]);
+
   useEffect(() => {
     if (!user) return;
     let alive = true;
-    dataClient.getColoringProgress(user.id, week).then((row) => {
-      if (alive && row?.image_data) setFills(row.image_data);
+    setSaved(false);
+    dataClient.getColoringProgress(user.id, pattern.pageId).then((row) => {
+      if (alive) setFills(row?.image_data ?? {});
     });
     return () => {
       alive = false;
     };
-  }, [user, week]);
+  }, [user, pattern]);
 
   if (loading) return <p className="text-xl text-navy">{t('loading')}</p>;
 
@@ -67,7 +149,8 @@ export default function ColoringStudio() {
   async function save() {
     await dataClient.saveColoringProgress({
       participantId: user.id,
-      weekNumber: week,
+      pageId: pattern.pageId,
+      weekNumber: pattern.id === 'home' ? week : null,
       imageData: fills,
     });
     setSaved(true);
@@ -83,7 +166,7 @@ export default function ColoringStudio() {
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = 800;
-      canvas.height = 600;
+      canvas.height = 800;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -92,7 +175,7 @@ export default function ColoringStudio() {
       canvas.toBlob((blob) => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `memoiva-coloring-week-${week}.png`;
+        a.download = `memoiva-coloring-${pattern.pageId}.png`;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -106,31 +189,52 @@ export default function ColoringStudio() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-extrabold text-navy">{t('coloringTitle')}</h1>
-        <p className="mt-2 text-lg text-body/80">{t('coloringHint')}</p>
+        <p className="mt-2 text-lg text-body/80">
+          {pattern.id === 'calm' ? t('coloringHintCalm') : t('coloringHint')}
+        </p>
+      </div>
+
+      <div className="flex justify-center gap-3" role="tablist" aria-label={t('coloringTitle')}>
+        {PATTERNS.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            role="tab"
+            aria-selected={patternId === p.id}
+            onClick={() => setPatternId(p.id)}
+            className={`min-h-tap rounded-xl border-2 px-5 text-lg font-semibold ${
+              patternId === p.id
+                ? 'border-teal bg-teal text-white'
+                : 'border-teal bg-white text-teal hover:bg-teal-light'
+            }`}
+          >
+            {t(p.labelKey)}
+          </button>
+        ))}
       </div>
 
       <div className="rounded-2xl bg-card p-4 shadow">
         <svg
           ref={svgRef}
-          viewBox="0 0 400 300"
+          viewBox={pattern.viewBox}
           xmlns="http://www.w3.org/2000/svg"
           className="h-auto w-full"
           role="img"
-          aria-label="Coloring picture: a house with a sun, a tree, and a flower"
+          aria-label={pattern.ariaLabel}
           data-testid="coloring-svg"
         >
-          <rect x="0" y="0" width="400" height="300" fill="#FFFFFF" />
-          {REGIONS.map((r) => (
+          <rect x="0" y="0" width="400" height="400" fill="#FFFFFF" />
+          {pattern.regions.map((r) => (
             <path
               key={r.id}
               d={r.d}
               fill={fills[r.id] ?? '#FFFFFF'}
               stroke={OUTLINE}
-              strokeWidth="3"
+              strokeWidth={pattern.id === 'calm' ? '1.5' : '3'}
               strokeLinejoin="round"
               tabIndex={0}
               role="button"
-              aria-label={`${r.label}`}
+              aria-label={r.label}
               data-testid={`region-${r.id}`}
               onClick={() => fillRegion(r.id)}
               onKeyDown={(e) => {

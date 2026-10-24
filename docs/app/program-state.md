@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-10-24 (Supabase env vars present; live connectivity still blocked — see Blocked)_
+_Last updated: 2026-10-24 (Supabase schema confirmed run on the real project by Ruthy — see Built and verified)_
 
 **PDF export:** `docs/app/MEMOIVA-Program-Docs.pdf` is a point-in-time,
 shareable snapshot (Week 1 curriculum + PRD + assessment + song library +
@@ -35,17 +35,31 @@ Blocked below) — nothing else here substitutes for that step.
   implementation of every dataClient function, including songs) are
   written and build clean. Magic-link login UI is live in `RolePicker.jsx`,
   auto-selected whenever `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` are
-  set. 2026-10-24: `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` are now
-  set in this environment and the production build picks them up —
-  confirmed the real project URL (`hzjlsnhabhqtzrbrdjfz.supabase.co`) is
-  baked into `dist/assets/*.js`, i.e. live mode, not mock mode. **Could
-  not go further than that**: this session's outbound network policy
-  rejects connections to `*.supabase.co` (`curl` through the required
-  proxy gets `403 connect_rejected` — host not allowed for this session),
-  so whether the schema was actually run, whether the `users` table
-  exists, and whether `sendMagicLink`/login work end-to-end against the
-  real project are **still unverified** — see Blocked below. This is a
-  session network-policy restriction, not a code or credentials problem.
+  set. `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` are set in this
+  environment and the production build picks them up — confirmed the real
+  project URL (`hzjlsnhabhqtzrbrdjfz.supabase.co`) is baked into
+  `dist/assets/*.js`, i.e. live mode, not mock mode.
+  **2026-10-24 — schema run against the real project:** `schema.sql` had
+  an ordering bug (`facilitates_cohort()`/`is_in_cohort()` referenced
+  `public.cohorts`/`public.cohort_participants` before those tables
+  existed — Postgres rejects that at `CREATE FUNCTION` time for
+  `LANGUAGE SQL` functions, `42P01 relation does not exist`). Fixed by
+  reordering table/function creation and adding idempotent
+  `drop ... if exists` cleanup at the top (safe to re-run after a partial
+  failure). Ruthy then ran the corrected file in the Supabase SQL Editor
+  herself and got **"Success, no rows returned"** — the schema (all 9
+  tables, the auth-linking trigger, RLS policies) is now confirmed live
+  on the real project. **Still not verified:** this Claude session's own
+  outbound network policy rejects connections to `*.supabase.co`
+  (`403 connect_rejected` through the required proxy), so a Claude
+  session still can't directly query the `users` table or test
+  `sendMagicLink` end-to-end — that remains a session network-policy
+  restriction (see Blocked below), not a sign anything is wrong with the
+  schema or credentials. The next real test is **Ruthy pre-creating one
+  real `users` row (her own email + `admin` role) via the Supabase Table
+  Editor, then trying the actual magic-link login in the app** — that
+  exercises the whole live path without needing this session's network
+  access fixed.
 - **Song library** — `SongLibrary.jsx` + `SongPlayer.jsx`. Weekly
   signature-song slot (one per week, "songs every session" per
   project-brief.md) plus a public-domain catalog, both EN/ES. Line-by-line
@@ -103,25 +117,25 @@ Blocked below) — nothing else here substitutes for that step.
 - Real curriculum content beyond week 1 (blocked on curriculum docs — see below)
 - iOS / Android packaging (Capacitor; planned after Supabase is live)
 
-- **Supabase live connectivity — blocked by this environment's network
-  policy, not by missing credentials** (2026-10-24): `VITE_SUPABASE_URL`
-  and `VITE_SUPABASE_ANON_KEY` are correctly set in this session and the
-  app build picks them up in live mode. But this cloud session's outbound
-  network policy currently denies connections to `*.supabase.co`
-  entirely — every attempt (REST query, `signInWithOtp`) fails at the
-  proxy with "host not allowed for this session," before ever reaching
-  Supabase. That means none of the following is actually confirmed yet:
-  whether `app/supabase/schema.sql` was run against the project, whether
-  the `users` table (or any table) exists, or whether magic-link login
-  works end-to-end. **What Ruthy needs to do:** open this environment's
-  settings (cloud environment menu → Edit → Network access) and add
+- **Supabase live connectivity — a Claude session still can't verify it
+  directly, but the schema itself is confirmed done** (updated
+  2026-10-24): the schema is run (see Built and verified above — Ruthy
+  got "Success, no rows returned" in the Supabase SQL Editor), so this is
+  now narrower than before. What's left is just that *this cloud
+  session's* outbound network policy denies connections to
+  `*.supabase.co` entirely, so a Claude session can't itself query the
+  `users` table or call `sendMagicLink` to prove the end-to-end flow
+  works. **What Ruthy needs to do, if she wants a Claude session to be
+  able to verify this directly:** open this environment's settings
+  (cloud environment menu → Edit → Network access) and add
   `*.supabase.co` (or the project's exact host) to Allowed domains, then
-  start a new session so the policy change takes effect. Once that's
-  done, a session can actually query the `users` table and send a real
-  magic-link to confirm the schema is live. Separately — still worth
-  double-checking regardless of the network fix — confirm
-  `app/supabase/schema.sql` was in fact run in the Supabase SQL Editor;
-  if it wasn't, that's a second, independent step still needed.
+  start a new session so the policy change takes effect. **This isn't
+  strictly required, though** — the real-world test that actually matters
+  (a person pre-created in `public.users`, signing in via magic link) can
+  be done directly by Ruthy without any session network-policy change:
+  add one row to `public.users` (her own email, `role = 'admin'`) via the
+  Supabase Table Editor, then try logging into the deployed app with that
+  email through the magic-link flow.
 - **Assessment content** — `assessment-design.md` needs founder-supplied
   content (the song, the movement routine, review of draft items) before
   it's final. See that doc's §7 checklist.

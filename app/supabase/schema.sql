@@ -15,6 +15,25 @@
 
 create extension if not exists "pgcrypto";
 
+-- Safe to re-run: clears out anything left over from a previous partial
+-- run (e.g. if an earlier attempt errored partway through) before
+-- rebuilding everything fresh below.
+drop table if exists public.facilitator_notes cascade;
+drop table if exists public.coloring_saves cascade;
+drop table if exists public.game_scores cascade;
+drop table if exists public.participant_progress cascade;
+drop table if exists public.weekly_content cascade;
+drop table if exists public.songs cascade;
+drop table if exists public.cohort_participants cascade;
+drop table if exists public.cohorts cascade;
+drop trigger if exists on_auth_user_created on auth.users;
+drop function if exists public.handle_new_auth_user();
+drop function if exists public.is_in_cohort(uuid);
+drop function if exists public.facilitates_cohort(uuid);
+drop function if exists public.current_role();
+drop function if exists public.current_profile_id();
+drop table if exists public.users cascade;
+
 -- ---------------------------------------------------------------------
 -- users (profile table — distinct from auth.users, linked via auth_user_id)
 -- ---------------------------------------------------------------------
@@ -48,6 +67,36 @@ $$;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_auth_user();
+
+-- ---------------------------------------------------------------------
+-- cohorts
+--
+-- Created before the RLS helper functions below, because
+-- facilitates_cohort() and is_in_cohort() reference this table and
+-- cohort_participants — Postgres resolves those references at function
+-- creation time, so the tables must exist first.
+-- ---------------------------------------------------------------------
+create table public.cohorts (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  track text not null check (track in ('es', 'esl')),
+  level text not null default 'beginner',
+  block_number integer not null default 1,
+  current_week integer not null default 1,
+  facilitator_id uuid not null references public.users (id),
+  start_date date not null,
+  end_date date
+);
+
+-- ---------------------------------------------------------------------
+-- cohort_participants
+-- ---------------------------------------------------------------------
+create table public.cohort_participants (
+  cohort_id uuid not null references public.cohorts (id) on delete cascade,
+  participant_id uuid not null references public.users (id) on delete cascade,
+  enrolled_at timestamptz not null default now(),
+  primary key (cohort_id, participant_id)
+);
 
 -- RLS helper functions (security definer so they can read public.users
 -- regardless of the calling user's own row-level permissions).
@@ -118,21 +167,6 @@ create policy "facilitator reads own cohort rosters" on public.users
     )
   );
 
--- ---------------------------------------------------------------------
--- cohorts
--- ---------------------------------------------------------------------
-create table public.cohorts (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  track text not null check (track in ('es', 'esl')),
-  level text not null default 'beginner',
-  block_number integer not null default 1,
-  current_week integer not null default 1,
-  facilitator_id uuid not null references public.users (id),
-  start_date date not null,
-  end_date date
-);
-
 alter table public.cohorts enable row level security;
 
 create policy "admin full access to cohorts" on public.cohorts
@@ -146,16 +180,6 @@ create policy "facilitator updates own cohorts" on public.cohorts
 
 create policy "participant reads own cohort" on public.cohorts
   for select using (public.is_in_cohort(id));
-
--- ---------------------------------------------------------------------
--- cohort_participants
--- ---------------------------------------------------------------------
-create table public.cohort_participants (
-  cohort_id uuid not null references public.cohorts (id) on delete cascade,
-  participant_id uuid not null references public.users (id) on delete cascade,
-  enrolled_at timestamptz not null default now(),
-  primary key (cohort_id, participant_id)
-);
 
 alter table public.cohort_participants enable row level security;
 

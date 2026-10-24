@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-09-24 (PDF export saved)_
+_Last updated: 2026-10-24 (Supabase env vars present; live connectivity still blocked — see Blocked)_
 
 **PDF export:** `docs/app/MEMOIVA-Program-Docs.pdf` is a point-in-time,
 shareable snapshot (Week 1 curriculum + PRD + assessment + song library +
@@ -15,9 +15,11 @@ from have moved on, rather than assuming it's current.
 date has passed with no cohort started. The 4–6 week target set earlier
 on 2026-09-23 is superseded — founder direction is to keep building
 scope (assessment expansion, song library, piano) rather than hold to
-that window (see `PRD.md` header note). The one thing that hasn't
-changed: creating the real Supabase project still needs Ruthy, and
-nothing else here substitutes for that step (see Blocked below).
+that window (see `PRD.md` header note). Ruthy has since added the real
+Supabase project's env vars to this environment (2026-10-24); what's left
+is confirming the schema was actually run and allowing this session's
+network policy to reach `*.supabase.co` so that can be verified (see
+Blocked below) — nothing else here substitutes for that step.
 
 ## Built and verified
 
@@ -33,9 +35,17 @@ nothing else here substitutes for that step (see Blocked below).
   implementation of every dataClient function, including songs) are
   written and build clean. Magic-link login UI is live in `RolePicker.jsx`,
   auto-selected whenever `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` are
-  set — verified with dummy credentials that the UI renders correctly;
-  **not yet verified against a real Supabase project** (no project exists
-  yet — see Blocked below).
+  set. 2026-10-24: `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` are now
+  set in this environment and the production build picks them up —
+  confirmed the real project URL (`hzjlsnhabhqtzrbrdjfz.supabase.co`) is
+  baked into `dist/assets/*.js`, i.e. live mode, not mock mode. **Could
+  not go further than that**: this session's outbound network policy
+  rejects connections to `*.supabase.co` (`curl` through the required
+  proxy gets `403 connect_rejected` — host not allowed for this session),
+  so whether the schema was actually run, whether the `users` table
+  exists, and whether `sendMagicLink`/login work end-to-end against the
+  real project are **still unverified** — see Blocked below. This is a
+  session network-policy restriction, not a code or credentials problem.
 - **Song library** — `SongLibrary.jsx` + `SongPlayer.jsx`. Weekly
   signature-song slot (one per week, "songs every session" per
   project-brief.md) plus a public-domain catalog, both EN/ES. Line-by-line
@@ -93,16 +103,25 @@ nothing else here substitutes for that step (see Blocked below).
 - Real curriculum content beyond week 1 (blocked on curriculum docs — see below)
 - iOS / Android packaging (Capacitor; planned after Supabase is live)
 
-## Blocked / needs Ruthy
-
-- **Supabase project creation** — a Claude session can't create a
-  Supabase account on your behalf. To finish the swap: (1) create a free
-  project at supabase.com, (2) run `app/supabase/schema.sql` against it
-  (SQL Editor), (3) add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
-  (Project Settings → API) as environment variables in this session's
-  environment settings — not pasted in chat — then start a new session so
-  they load. From there the real end-to-end flow (magic-link email,
-  roster visibility, RLS) can actually be tested for the first time.
+- **Supabase live connectivity — blocked by this environment's network
+  policy, not by missing credentials** (2026-10-24): `VITE_SUPABASE_URL`
+  and `VITE_SUPABASE_ANON_KEY` are correctly set in this session and the
+  app build picks them up in live mode. But this cloud session's outbound
+  network policy currently denies connections to `*.supabase.co`
+  entirely — every attempt (REST query, `signInWithOtp`) fails at the
+  proxy with "host not allowed for this session," before ever reaching
+  Supabase. That means none of the following is actually confirmed yet:
+  whether `app/supabase/schema.sql` was run against the project, whether
+  the `users` table (or any table) exists, or whether magic-link login
+  works end-to-end. **What Ruthy needs to do:** open this environment's
+  settings (cloud environment menu → Edit → Network access) and add
+  `*.supabase.co` (or the project's exact host) to Allowed domains, then
+  start a new session so the policy change takes effect. Once that's
+  done, a session can actually query the `users` table and send a real
+  magic-link to confirm the schema is live. Separately — still worth
+  double-checking regardless of the network fix — confirm
+  `app/supabase/schema.sql` was in fact run in the Supabase SQL Editor;
+  if it wasn't, that's a second, independent step still needed.
 - **Assessment content** — `assessment-design.md` needs founder-supplied
   content (the song, the movement routine, review of draft items) before
   it's final. See that doc's §7 checklist.

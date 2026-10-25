@@ -8,6 +8,8 @@ export const STRINGS = {
     appName: 'MEMOIVA Circle',
     tagline: 'Your bilingual brain-wellness studio',
     flagship: 'A Flagship Program of RAMP Linguistic Society',
+    disclaimer:
+      'MEMOIVA Circle is inspired by peer-reviewed research on bilingualism and cognitive health. It is not a medical device and does not diagnose, treat, prevent, or cure any medical condition. The assessments used in MEMOIVA Circle are educational tools, not clinical diagnostic instruments. If you have concerns about your cognitive health, please consult a qualified healthcare provider.',
     welcomeTitle: 'Welcome to MEMOIVA Circle',
     welcomeBody:
       'A warm, weekly program to keep your mind active and your confidence growing. Choose your language, then pick a demo role to explore.',
@@ -127,6 +129,8 @@ export const STRINGS = {
     appName: 'MEMOIVA Circle',
     tagline: 'Tu estudio bilingüe de bienestar mental',
     flagship: 'Programa Insignia de RAMP Linguistic Society',
+    disclaimer:
+      'MEMOIVA Circle está inspirado en investigación revisada por pares sobre bilingüismo y salud cognitiva. No es un dispositivo médico y no diagnostica, trata, previene ni cura ninguna condición médica. Las evaluaciones utilizadas en MEMOIVA Circle son herramientas educativas, no instrumentos de diagnóstico clínico. Si tiene inquietudes sobre su salud cognitiva, por favor consulte a un proveedor de atención médica calificado.',
     welcomeTitle: 'Bienvenida a MEMOIVA Circle',
     welcomeBody:
       'Un programa semanal y acogedor para mantener tu mente activa y tu confianza creciendo. Elige tu idioma y luego un rol de demostración para explorar.',

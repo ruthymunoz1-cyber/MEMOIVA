@@ -90,6 +90,9 @@ export default function Layout({ nav, children }) {
       <main id="main" className="mx-auto max-w-6xl px-4 py-8">
         {children}
       </main>
+      <footer className="mx-auto max-w-6xl px-4 pb-8">
+        <p className="text-sm leading-relaxed text-body/60">{t('disclaimer')}</p>
+      </footer>
     </div>
   );
 }

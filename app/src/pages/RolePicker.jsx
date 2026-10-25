@@ -172,6 +172,8 @@ export default function RolePicker() {
           </div>
         </fieldset>
         )}
+
+        <p className="mt-8 text-center text-sm leading-relaxed text-navy/60">{t('disclaimer')}</p>
       </div>
     </div>
   );

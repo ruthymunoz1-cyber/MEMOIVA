@@ -38,6 +38,17 @@ export default {
       },
       minHeight: { tap: '48px' },
       minWidth: { tap: '48px' },
+      keyframes: {
+        'card-in': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        // Reduced-motion is handled globally in index.css (all animations
+        // collapse to ~0 duration there), so this stays simple here.
+        'card-in': 'card-in .6s ease-out',
+      },
     },
   },
   plugins: [],

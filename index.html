@@ -239,6 +239,34 @@ footer{background:var(--navy);padding:60px 0 36px;text-align:center;}
 .footer-links a:hover{color:var(--teal-light);}
 .footer-divider{height:1px;background:rgba(255,255,255,.08);margin:20px 0;}
 .footer-legal{font-size:.76rem;color:rgba(255,255,255,.22);line-height:1.8;max-width:640px;margin:0 auto;}
+/* --- Motion: one hero entrance + one reveal pattern reused for the card
+   sections below, plus a count-up on the two research stats. Reveal state
+   only applies once .js-anim is added by script (see body) — if JS never
+   runs, content stays fully visible. prefers-reduced-motion disables all
+   of it and shows the final state immediately either way. --- */
+.hero-eyebrow{opacity:0;animation:heroRise .7s cubic-bezier(.16,1,.3,1) .1s forwards;}
+.hero-headline{opacity:0;animation:heroRise .8s cubic-bezier(.16,1,.3,1) .2s forwards;}
+.lang-strip{opacity:0;animation:heroRise .7s cubic-bezier(.16,1,.3,1) .34s forwards;}
+.hero-sub{opacity:0;animation:heroRise .7s cubic-bezier(.16,1,.3,1) .44s forwards;}
+.hero-ctas,.hero-trust{opacity:0;animation:heroRise .7s cubic-bezier(.16,1,.3,1) .54s forwards;}
+.hero-visual{opacity:0;animation:heroRiseScale .9s cubic-bezier(.16,1,.3,1) .3s forwards;}
+@keyframes heroRise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes heroRiseScale{from{opacity:0;transform:translateY(18px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+.js-anim .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.js-anim .reveal.is-visible{opacity:1;transform:translateY(0);}
+.audience-grid .reveal:nth-child(2){transition-delay:.1s;}
+.audience-grid .reveal:nth-child(3){transition-delay:.2s;}
+.pillars-grid .reveal:nth-child(2){transition-delay:.1s;}
+.pillars-grid .reveal:nth-child(3){transition-delay:.2s;}
+.steps .reveal:nth-child(2){transition-delay:.08s;}
+.steps .reveal:nth-child(3){transition-delay:.16s;}
+.steps .reveal:nth-child(4){transition-delay:.24s;}
+.science-card.reveal ~ .science-card.reveal{transition-delay:.12s;}
+.science-stat-number{font-variant-numeric:tabular-nums;}
+@media(prefers-reduced-motion:reduce){
+  .hero-eyebrow,.hero-headline,.lang-strip,.hero-sub,.hero-ctas,.hero-trust,.hero-visual{opacity:1!important;animation:none!important;}
+  .js-anim .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+}
 body.high-contrast{--navy:#000;--teal:#00A0A0;--teal-light:#00FFFF;--gold:#FFD700;--gold-light:#FFD700;--cream:#FFF;--white:#FFF;--text-body:#000;--text-muted:#222;background:#FFF;}
 body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
 @media(max-width:900px){
@@ -261,6 +289,7 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js-anim');</script>
 <!-- Hidden static forms so Netlify's deploy-time bot registers these form names and fields.
      The real forms above are JS-driven; submitWaitlist()/submitPartner() POST to these via fetch. -->
 <form name="waitlist" data-netlify="true" hidden>
@@ -375,9 +404,9 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
     <h2 class="section-title" id="aud-title">Built for the students every other program forgot</h2>
     <p class="section-body" id="aud-body">MEMOIVA Circle meets you exactly where you are — whether you are navigating cognitive decline, protecting your brain health, or learning a language for the joy of it.</p>
     <div class="audience-grid">
-      <div class="audience-card"><div class="audience-card-icon">🧠</div><h3 id="c1-title">Adults Navigating Cognitive Decline</h3><p id="c1-body">If you or a loved one are living with early cognitive decline or memory changes, MEMOIVA Circle was designed specifically with your needs in mind — with research, warmth, and zero condescension.</p></div>
-      <div class="audience-card"><div class="audience-card-icon">🛡️</div><h3 id="c2-title">Adults Protecting Their Brain Health</h3><p id="c2-body">Concerned about long-term brain health and determined to be proactive? MEMOIVA gives you a research-informed tool that is also genuinely enjoyable to use every single week.</p></div>
-      <div class="audience-card"><div class="audience-card-icon">💛</div><h3 id="c3-title">Families & Caregivers</h3><p id="c3-body">Our Dyad enrollment option lets a student and their caregiver or family member attend together — building connection and shared language at the same time. Both of you grow.</p></div>
+      <div class="audience-card reveal"><div class="audience-card-icon">🧠</div><h3 id="c1-title">Adults Navigating Cognitive Decline</h3><p id="c1-body">If you or a loved one are living with early cognitive decline or memory changes, MEMOIVA Circle was designed specifically with your needs in mind — with research, warmth, and zero condescension.</p></div>
+      <div class="audience-card reveal"><div class="audience-card-icon">🛡️</div><h3 id="c2-title">Adults Protecting Their Brain Health</h3><p id="c2-body">Concerned about long-term brain health and determined to be proactive? MEMOIVA gives you a research-informed tool that is also genuinely enjoyable to use every single week.</p></div>
+      <div class="audience-card reveal"><div class="audience-card-icon">💛</div><h3 id="c3-title">Families & Caregivers</h3><p id="c3-body">Our Dyad enrollment option lets a student and their caregiver or family member attend together — building connection and shared language at the same time. Both of you grow.</p></div>
     </div>
   </div>
 </section>
@@ -388,9 +417,9 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
     <h2 class="section-title section-title--light" id="pil-title">Three things working together, every session</h2>
     <p class="section-body" style="color:rgba(255,255,255,.52);margin-bottom:44px;" id="pil-body">Every MEMOIVA Circle session activates your brain through three interlocking approaches that research shows are most powerful together.</p>
     <div class="pillars-grid">
-      <div class="pillar"><div class="pillar-icon pillar-icon--teal">🗣️</div><p class="pillar-label pillar-label--teal" id="p1-label">Language</p><h3 id="p1-title">Real Conversation</h3><p id="p1-body">Practical vocabulary taught through storytelling — not grammar drills. Every week builds on a serialized story featuring characters your whole circle will come to know.</p></div>
-      <div class="pillar"><div class="pillar-icon pillar-icon--gold">🧠</div><p class="pillar-label pillar-label--gold" id="p2-label">Brain Health</p><h3 id="p2-title">Cognitive Activation</h3><p id="p2-body">Memory games, speed exercises, and working memory practice woven into each session. You are building neural pathways that protect your mind — every week.</p></div>
-      <div class="pillar"><div class="pillar-icon pillar-icon--purple">🎵</div><p class="pillar-label pillar-label--purple" id="p3-label">Music</p><h3 id="p3-title">Musical Memory</h3><p id="p3-body">Songs create emotional anchors that text alone never could. Every session includes a carefully chosen song that deepens vocabulary in a way your brain holds onto. You will leave humming the words.</p></div>
+      <div class="pillar reveal"><div class="pillar-icon pillar-icon--teal">🗣️</div><p class="pillar-label pillar-label--teal" id="p1-label">Language</p><h3 id="p1-title">Real Conversation</h3><p id="p1-body">Practical vocabulary taught through storytelling — not grammar drills. Every week builds on a serialized story featuring characters your whole circle will come to know.</p></div>
+      <div class="pillar reveal"><div class="pillar-icon pillar-icon--gold">🧠</div><p class="pillar-label pillar-label--gold" id="p2-label">Brain Health</p><h3 id="p2-title">Cognitive Activation</h3><p id="p2-body">Memory games, speed exercises, and working memory practice woven into each session. You are building neural pathways that protect your mind — every week.</p></div>
+      <div class="pillar reveal"><div class="pillar-icon pillar-icon--purple">🎵</div><p class="pillar-label pillar-label--purple" id="p3-label">Music</p><h3 id="p3-title">Musical Memory</h3><p id="p3-body">Songs create emotional anchors that text alone never could. Every session includes a carefully chosen song that deepens vocabulary in a way your brain holds onto. You will leave humming the words.</p></div>
     </div>
   </div>
 </section>
@@ -400,12 +429,12 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
     <p class="section-label" id="sci-label">The Science</p>
     <h2 class="section-title" id="sci-title">This is not just a wellness class. It is a research-informed cognitive wellness program.</h2>
     <p class="section-body" id="sci-body">Every structural decision in MEMOIVA Circle was informed by peer-reviewed research for adults 50+ — grounded in the specific science of bilingualism and cognitive wellness.</p>
-    <div class="science-card">
-      <div><div class="science-stat-number">4.5</div><div class="science-stat-unit" id="stat1-unit">years later</div></div>
+    <div class="science-card reveal">
+      <div><div class="science-stat-number stat-countup">4.5</div><div class="science-stat-unit" id="stat1-unit">years later</div></div>
       <div class="science-body"><h3 id="stat1-title">Bilingual adults develop dementia symptoms years later than monolinguals</h3><p id="stat1-body">Multiple peer-reviewed studies — including Venugopal et al., Alzheimer's & Dementia, 2024 — show that adults who engage in bilingual language practice develop symptoms of Alzheimer's and dementia an average of 4.5–5 years later than monolinguals. MEMOIVA Circle is among the first facilitated programs in the U.S. designed to put this research to work for adults 50+ in a structured, community setting.</p></div>
     </div>
-    <div class="science-card">
-      <div><div class="science-stat-number">2×</div><div class="science-stat-unit" id="stat2-unit">neural pathways</div></div>
+    <div class="science-card reveal">
+      <div><div class="science-stat-number stat-countup">2×</div><div class="science-stat-unit" id="stat2-unit">neural pathways</div></div>
       <div class="science-body"><h3 id="stat2-title">A word learned in two languages creates two neural pathways — not one</h3><p id="stat2-body">Research from Concordia University shows bilingual individuals demonstrate significantly greater hippocampal neuroplasticity than monolinguals. MEMOIVA's dual-language vocabulary approach activates both pathways every session — giving your brain the opportunity to build connections in two languages — which research associates with greater brain resilience.</p></div>
     </div>
     <p class="science-disclaimer" id="sci-disc">MEMOIVA Circle is inspired by peer-reviewed research on bilingualism and cognitive health. It is not a medical device and does not diagnose, treat, or prevent any medical condition. Please consult a qualified healthcare provider with any concerns about your cognitive health.</p>
@@ -419,10 +448,10 @@ body.high-contrast nav{background:#FFF;border-bottom:2px solid #000;}
     <p class="section-body" id="hiw-body">MEMOIVA Circle runs in small cohorts — maximum 6 students — who move through the program together. Here is what one 8-week block looks like.</p>
     <div class="section-divider"></div>
     <div class="steps">
-      <div class="step"><div class="step-number">01</div><div class="step-content"><span class="step-tag step-tag--teal" id="st1-tag">Every Week — Twice</span><h3 id="st1-title">Two live sessions, 60 minutes each</h3><p id="st1-body">Each week brings two live sessions with your facilitator and your circle. New language, songs, and cognitive engagement every session — structured to build on itself week after week.</p></div></div>
-      <div class="step"><div class="step-number">02</div><div class="step-content"><span class="step-tag step-tag--gold" id="st2-tag">Every Day</span><h3 id="st2-title">Practice that travels with you</h3><p id="st2-body">Your student workbook and the MEMOIVA digital app keep your mind active between sessions — with vocabulary practice, brain health exercises, digital coloring, and weekly self-check-ins.</p></div></div>
-      <div class="step"><div class="step-number">03</div><div class="step-content"><span class="step-tag step-tag--purple" id="st3-tag">Week 8</span><h3 id="st3-title">Graduation — with real results</h3><p id="st3-body">Every cohort ends with a graduation. You will see your own progress — measurable, documented, and yours. Then decide if you want to continue your language journey into the next circle.</p></div></div>
-      <div class="step"><div class="step-number">04</div><div class="step-content"><span class="step-tag step-tag--teal" id="st4-tag">Every Session</span><h3 id="st4-title">A closing that means something</h3><p id="st4-body">Every MEMOIVA Circle session closes the same way — together, in both languages, with an affirmation of who you are becoming. It is the moment students say they look forward to most.</p></div></div>
+      <div class="step reveal"><div class="step-number">01</div><div class="step-content"><span class="step-tag step-tag--teal" id="st1-tag">Every Week — Twice</span><h3 id="st1-title">Two live sessions, 60 minutes each</h3><p id="st1-body">Each week brings two live sessions with your facilitator and your circle. New language, songs, and cognitive engagement every session — structured to build on itself week after week.</p></div></div>
+      <div class="step reveal"><div class="step-number">02</div><div class="step-content"><span class="step-tag step-tag--gold" id="st2-tag">Every Day</span><h3 id="st2-title">Practice that travels with you</h3><p id="st2-body">Your student workbook and the MEMOIVA digital app keep your mind active between sessions — with vocabulary practice, brain health exercises, digital coloring, and weekly self-check-ins.</p></div></div>
+      <div class="step reveal"><div class="step-number">03</div><div class="step-content"><span class="step-tag step-tag--purple" id="st3-tag">Week 8</span><h3 id="st3-title">Graduation — with real results</h3><p id="st3-body">Every cohort ends with a graduation. You will see your own progress — measurable, documented, and yours. Then decide if you want to continue your language journey into the next circle.</p></div></div>
+      <div class="step reveal"><div class="step-number">04</div><div class="step-content"><span class="step-tag step-tag--teal" id="st4-tag">Every Session</span><h3 id="st4-title">A closing that means something</h3><p id="st4-body">Every MEMOIVA Circle session closes the same way — together, in both languages, with an affirmation of who you are becoming. It is the moment students say they look forward to most.</p></div></div>
     </div>
   </div>
 </section>
@@ -994,6 +1023,46 @@ async function submitPartner() {
 window.addEventListener('scroll',()=>{
   document.querySelector('nav').style.boxShadow=window.scrollY>50?'0 2px 20px rgba(26,43,76,.09)':'none';
 });
+
+// Scroll-reveal for card/step sections, plus a count-up on the two
+// research stats. Both skipped entirely if the visitor prefers reduced
+// motion — content is already visible by default either way (see the
+// .js-anim-scoped CSS), this just avoids wasted animation work.
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      countObserver.unobserve(entry.target);
+      const el = entry.target;
+      const raw = el.textContent.trim(); // e.g. "4.5" or "2×"
+      const suffix = raw.replace(/[0-9.]/g, '');
+      const target = parseFloat(raw);
+      if (isNaN(target)) return;
+      const decimals = raw.includes('.') ? 1 : 0;
+      const duration = 900;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = raw;
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.stat-countup').forEach(el => countObserver.observe(el));
+}
 </script>
 </body>
 </html>

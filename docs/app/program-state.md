@@ -3,7 +3,25 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-10-24 (Supabase schema confirmed run on the real project by Ruthy — see Built and verified)_
+_Last updated: 2026-10-25 (Netlify deploy config added; RAMP Learning Platform discovery)_
+
+**⚠️ Bigger context, found 2026-10-25:** MEMOIVA Circle (everything this
+file tracks) is only "Project 1" of a two-project structure — see
+`../RAMP_Project_Migration_Report.md`. "Project 2 — RAMP Learning
+Platform" is a much larger, previously undocumented business line: 10
+curriculum tracks (DIALOVA, INGLOVA, MEMOIVA, VORANA, SONARA, AGELESS
+FLUIDEZ, ORIVA, NATOVA, FLUOVA, PINGOVA), 74 of a 150-lesson target
+already written, plus a press kit, capability statement, trademark
+roadmap, and several HTML artifacts (`RAMP_Beta_App.html`,
+`RAMP_Landing_Page.html`, `RAMP_Logo_Suite.html`, etc.) referenced as
+already built. **None of this exists anywhere in GitHub, and a search of
+the founder's published Claude Artifacts didn't find it either — its
+current location is unknown.** Likely candidates: a claude.ai Project
+(if the two Projects this report recommends were ever actually set up),
+inside the original chat conversation's history (never explicitly
+published), or saved locally on the founder's own computer. This is a
+live data-loss risk until located and committed somewhere durable — flag
+it in any future session, don't let it go quiet.
 
 **PDF export:** `docs/app/MEMOIVA-Program-Docs.pdf` is a point-in-time,
 shareable snapshot (Week 1 curriculum + PRD + assessment + song library +
@@ -110,10 +128,16 @@ Blocked below) — nothing else here substitutes for that step.
 
 ## Not started
 
-- **Creating the actual Supabase project and running the schema** — the
-  code is ready and waiting; this needs Ruthy (see Blocked below).
-- Deploying the app itself (website is deployed; app is not yet) — see `deployment-and-hosting.md`
-- PIN/preview gate for stakeholder demos
+- ~~Creating the actual Supabase project and running the schema~~ — DONE,
+  2026-10-24 (see Built and verified above).
+- **Deploying the app itself** — `netlify.toml` added 2026-10-25, builds
+  the app as its own standalone Netlify site (not nested under the
+  marketing site, to avoid a routing conflict with the app's own
+  internal `/app` route — see `deployment-and-hosting.md`). Still needs
+  Ruthy to actually connect it in Netlify's dashboard — the real step
+  that gets a login-able URL.
+- PIN/preview gate — no longer the plan now that real accounts exist;
+  magic-link login is the real gate.
 - Real curriculum content beyond week 1 (blocked on curriculum docs — see below)
 - iOS / Android packaging (Capacitor; planned after Supabase is live)
 

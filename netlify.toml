@@ -1,0 +1,13 @@
+[build]
+  base = "app"
+  command = "npm install && npm run build"
+  publish = "dist"
+
+# React Router handles paths like /piano, /facilitator, /songs/:id
+# client-side — without this, a direct link or page refresh on any of
+# those returns a 404 from Netlify instead of letting the app's own
+# router take over.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

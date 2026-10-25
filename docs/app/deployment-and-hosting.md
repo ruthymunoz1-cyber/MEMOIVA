@@ -58,3 +58,45 @@ neither one provides a database or accounts. The actual blocker is that
 a Supabase project (a separate free service, unrelated to hosting) needs
 to be created — see `program-state.md`, Blocked section. Netlify stays
 the answer above.
+
+## 2026-10-25: app deploys as its own Netlify site — path-prefix plan revised
+
+Real accounts are live (Supabase schema confirmed run against the real
+project — see `program-state.md`). To actually log in, the app needs a
+real URL. Building it:
+
+**The original "serve under `memoiva.com/app`" idea has a routing bug,
+caught before deploying:** the app's own React Router already uses
+`/app` as an internal path (for the participant section, distinct from
+`/facilitator` and `/admin`). Nesting the whole app under a Netlify path
+prefix of `/app` too would double it up — `memoiva.com/app/app/songs`.
+
+**Revised plan:** `netlify.toml` (repo root) now builds the app as its
+**own separate Netlify site** — `base = "app"`, builds from that
+subfolder, serves at its own `something.netlify.app` URL with no prefix,
+so the app's internal `/app`, `/facilitator`, `/admin` routes work
+exactly as written. Includes the SPA fallback redirect so direct links
+and page refreshes on any route work (not just the homepage).
+
+When ready to attach a real domain: point a **subdomain** at this site —
+`app.memoiva.com` — rather than a path prefix. Avoids the nesting problem
+entirely and is simpler in Netlify's domain settings than a path-based
+split would be anyway. The marketing site keeps `index.html` at
+`memoiva.com` exactly as it is now; nothing about it changes.
+
+**To actually deploy:**
+1. app.netlify.com → **Add new site → Import an existing project** →
+   connect GitHub → pick `ruthymunoz1-cyber/MEMOIVA`
+2. Netlify should auto-detect the settings from `netlify.toml`; if asked
+   to confirm: base directory `app`, build command `npm install && npm
+   run build`, publish directory `dist`
+3. **Before the first deploy** (or right after, then redeploy): Site
+   settings → Environment variables → add `VITE_SUPABASE_URL` and
+   `VITE_SUPABASE_ANON_KEY` with the same values used in the Claude
+   session's environment. **This is a separate step from that
+   environment setup** — Netlify's build has no access to this session's
+   environment variables; without adding them here too, the deployed app
+   builds in demo/mock mode instead of connecting to the real backend.
+4. Deploy. You'll get a `yourname.netlify.app` URL immediately — that's
+   enough to actually test logging in.
+

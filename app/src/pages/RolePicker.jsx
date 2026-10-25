@@ -70,7 +70,9 @@ export default function RolePicker() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-appbg px-4 py-10">
       <div className="w-full max-w-xl rounded-2xl bg-card p-8 shadow-lg">
-        <h1 className="text-center text-4xl font-extrabold tracking-wide text-teal">MEMOIVA</h1>
+        <h1 className="text-center font-display text-5xl tracking-[0.18em] text-navy">
+          MEMO<span className="text-teal-accent">I</span>VA
+        </h1>
         <p className="mt-1 text-center text-lg text-navy">{t('tagline')}</p>
 
         <h2 className="mt-6 text-2xl font-bold text-navy">{t('welcomeTitle')}</h2>

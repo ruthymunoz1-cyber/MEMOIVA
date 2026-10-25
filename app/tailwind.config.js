@@ -4,27 +4,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        // MEMOIVA brand tokens — exact values, do not substitute.
-        teal: { DEFAULT: '#0E7C7B', dark: '#0A5E5D', light: '#E6F2F2' },
+        // MEMOIVA brand tokens — exact values, do not substitute. See
+        // docs/brand-assets/BRAND_BIBLE.md — this file must match it exactly.
+        teal: {
+          DEFAULT: '#0E7C7B',
+          dark: '#0A5E5D',
+          // Pale background wash (hover states, card fills) — NOT the brand accent color.
+          wash: '#E6F2F2',
+          light: '#E6F2F2',
+          // The true brand accent — the stylized "I" in the wordmark, focus rings, highlights.
+          accent: '#00C4C4',
+        },
         navy: { DEFAULT: '#1A2B4C' },
-        gold: { DEFAULT: '#B8860B', light: '#FBF3DF' },
+        gold: {
+          DEFAULT: '#B8860B',
+          // Pale background wash — NOT the brand accent color.
+          wash: '#FBF3DF',
+          light: '#FBF3DF',
+          // The true brand accent — badges, trust dots, highlight text.
+          accent: '#E8B84B',
+        },
+        purple: { DEFAULT: '#7A6BCC' },
         appbg: '#FAF6EC',
         card: '#FFFFFF',
         body: '#1A1A2E',
+        muted: '#4A5A6A',
       },
-      // Clean, highly-legible sans-serif system stack.
-      // NOTE: the MEMOIVA marketing site uses Bebas Neue / Cormorant Garamond / Jost
-      // from Google Fonts — load those here later if brand match is wanted.
+      // MEMOIVA brand fonts, loaded in index.html — matches the marketing site exactly.
       fontFamily: {
-        sans: [
-          'system-ui',
-          '-apple-system',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'sans-serif',
-        ],
+        sans: ['Jost', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        display: ['Bebas Neue', 'sans-serif'],
       },
       minHeight: { tap: '48px' },
       minWidth: { tap: '48px' },

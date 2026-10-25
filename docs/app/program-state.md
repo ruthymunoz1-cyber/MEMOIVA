@@ -3,7 +3,63 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-10-25 (background color corrected to an actual warm cream)_
+_Last updated: 2026-10-25 (app deployed live to Netlify; Brand Bible created
+after the app was found using placeholder colors/fonts, not the real brand
+system; new founder-approved items queued: Name+PIN login, bigger-text
+control, spoken/read-aloud support)_
+
+**App is now live:** `https://memoiva-circle-app.netlify.app/` — deployed
+successfully by Ruthy via Netlify (repo connected, env vars added). The
+magic-link email sign-in screen loads correctly, confirming the production
+build picked up the real Supabase credentials. See "Deploying the app
+itself" below — the one remaining step is real-world login testing.
+
+**Brand Bible created, 2026-10-25:** `docs/brand-assets/BRAND_BIBLE.md` is
+now the single source of truth for colors/fonts/logo usage — check it before
+any visual work on either the app or the website. It was created because the
+live app's login screen was found rendering "MEMOIVA" as plain system-font
+text in flat teal, with no Google Fonts loaded in `app/index.html` at all —
+the app's design tokens had silently drifted from the real brand system the
+website already uses. Root cause and the fix are documented in the Brand
+Bible's "Known-drift history" section. Fixed same day: `app/index.html` now
+loads the same Google Fonts as the website; `app/tailwind.config.js` now has
+`teal.accent`/`gold.accent` (the true `#00C4C4`/`#E8B84B` brand accents,
+previously missing entirely) alongside the existing pale-wash colors
+(renamed `teal.wash`/`gold.wash`, with `light` kept as an alias so nothing
+broke); `purple` and `muted` tokens added; `fontFamily.sans/serif/display`
+now point at Jost/Cormorant Garamond/Bebas Neue instead of a generic system
+stack. `RolePicker.jsx`'s wordmark now renders `MEMO` + teal-accent `I` +
+`VA` in the display font, matching the website's actual markup pattern —
+screenshot-verified.
+
+**Still open on the login screen (founder feedback, 2026-10-25), not yet
+built:**
+- Layout/visual polish — founder's reaction to the live page: "doesn't
+  cover the entire page," "kind of plain," wants "elegant, yet fun,
+  interactive yet engaging and captivating for a first impression." Needs a
+  real redesign pass (likely a hero treatment using
+  `memoiva-hero-faces-only.png` or similar), not just the token fix above.
+- **Name + PIN login**, for participants without email — founder chose this
+  over facilitator-assisted or email-only (2026-10-25 AskUserQuestion).
+  Recommended shape (not yet built): facilitator assigns a simple 4-digit
+  PIN per participant when provisioning their account; facilitator can view
+  and reset it at any time (not a one-way hash/reset-only flow) — population
+  is memory-focused, so "the participant must remember a self-chosen PIN
+  with no easy recovery" is the wrong failure mode to design for. Needs a
+  schema addition (`pin` or `pin_hash` + a facilitator-visible path to it),
+  a verification path (likely a Postgres RPC, since Supabase Auth itself is
+  email/OAuth/phone-based and a name+PIN session won't carry a real
+  `auth.uid()` — the RLS implications of that gap need to be worked through
+  before this goes live with real data, not glossed over), and a UI toggle
+  on the login screen alongside the email form.
+- **Bigger-text control** — the website already has one (`index.html`'s
+  "A / A+ / A++" buttons, `body.fs-large`/`fs-xl`). The app has no
+  equivalent yet. Founder-confirmed requirement, 2026-10-25.
+- **Spoken / read-aloud support** — founder-confirmed requirement,
+  2026-10-25, not built anywhere yet (app or website). Planned approach:
+  browser Web Speech API (`speechSynthesis`), with the caveat (documented in
+  the Brand Bible) that voice quality/availability — especially Spanish —
+  depends on the participant's own device, not a studio recording.
 
 **⚠️ Bigger context, found 2026-10-25:** MEMOIVA Circle (everything this
 file tracks) is only "Project 1" of a two-project structure — see

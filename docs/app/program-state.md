@@ -3,7 +3,7 @@
 **Rule: check this file first at the start of every work session; update it
 last before pushing.**
 
-_Last updated: 2026-10-25 (Netlify deploy config added; RAMP Learning Platform discovery)_
+_Last updated: 2026-10-25 (background color corrected to an actual warm cream)_
 
 **⚠️ Bigger context, found 2026-10-25:** MEMOIVA Circle (everything this
 file tracks) is only "Project 1" of a two-project structure — see
@@ -41,7 +41,22 @@ Blocked below) — nothing else here substitutes for that step.
 
 ## Built and verified
 
-- **Public website** — `index.html` (single self-contained file), live via Netlify. Waitlist + partner forms wired to Netlify Forms.
+- **Design pass, 2026-10-25** — restrained motion (hero entrance, scroll-
+  reveal on the card sections, count-up on the two research stats, see
+  commit history) plus a color correction: `--cream` / the app's `appbg`
+  token was `#F8F9FA` — a cool, slightly blue-tinted gray despite the
+  name — corrected to `#FAF6EC`, an actual warm ivory. Applied
+  identically to both the website and the app so they stay in sync. The
+  other locked brand colors (navy, teal, gold, purple) were left
+  untouched — this was a correction to match the token's own documented
+  intent, not a creative substitution of a locked value. Screenshot-
+  verified in both places; contrast against navy/body text is
+  unaffected (both backgrounds are >90% luminance).
+- **Public website** — `index.html` (single self-contained file). **Not
+  actually deployed anywhere yet** — confirmed directly with the founder
+  2026-10-25; earlier notes in this file saying "live via Netlify" were
+  wrong/aspirational. Waitlist + partner forms are wired for Netlify
+  Forms and will work once it actually is deployed there.
 - **Web app v1** — `/app` (React + Vite + Tailwind). Production build verified in BOTH modes (`npm run build` with and without Supabase env vars) and smoke-tested in a browser.
   - Participant: dashboard, This Week, vocabulary flashcards, Memory Grid game, Coloring Studio, **Songs (library + synced-lyrics player), Piano (color-coded lessons)**, My Progress, weekly check-in (confidence + memory 1–5)
   - Facilitator: cohort list, cohort view with roster, participant detail with notes

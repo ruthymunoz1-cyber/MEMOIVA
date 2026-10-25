@@ -8,7 +8,7 @@ export default {
         teal: { DEFAULT: '#0E7C7B', dark: '#0A5E5D', light: '#E6F2F2' },
         navy: { DEFAULT: '#1A2B4C' },
         gold: { DEFAULT: '#B8860B', light: '#FBF3DF' },
-        appbg: '#F8F9FA',
+        appbg: '#FAF6EC',
         card: '#FFFFFF',
         body: '#1A1A2E',
       },

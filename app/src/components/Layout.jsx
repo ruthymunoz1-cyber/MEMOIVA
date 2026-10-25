@@ -50,7 +50,10 @@ export default function Layout({ nav, children }) {
       <header className="bg-teal text-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
           <div className="mr-auto">
-            <div className="text-2xl font-extrabold tracking-wide">MEMOIVA</div>
+            <div className="font-display text-2xl tracking-[0.12em] text-white">MEMOIVA CIRCLE</div>
+            <div className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-gold-accent">
+              {t('flagship')}
+            </div>
             {user && <div className="text-base text-white/90">{user.full_name}</div>}
           </div>
           <LangToggle />

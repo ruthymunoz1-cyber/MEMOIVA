@@ -5,9 +5,10 @@
 
 export const STRINGS = {
   esl: {
-    appName: 'MEMOIVA',
+    appName: 'MEMOIVA Circle',
     tagline: 'Your bilingual brain-wellness studio',
-    welcomeTitle: 'Welcome to MEMOIVA',
+    flagship: 'A Flagship Program of RAMP Linguistic Society',
+    welcomeTitle: 'Welcome to MEMOIVA Circle',
     welcomeBody:
       'A warm, weekly program to keep your mind active and your confidence growing. Choose your language, then pick a demo role to explore.',
     welcomeBodyLive:
@@ -123,9 +124,10 @@ export const STRINGS = {
     loading: 'Loading…',
   },
   es: {
-    appName: 'MEMOIVA',
+    appName: 'MEMOIVA Circle',
     tagline: 'Tu estudio bilingüe de bienestar mental',
-    welcomeTitle: 'Bienvenida a MEMOIVA',
+    flagship: 'Programa Insignia de RAMP Linguistic Society',
+    welcomeTitle: 'Bienvenida a MEMOIVA Circle',
     welcomeBody:
       'Un programa semanal y acogedor para mantener tu mente activa y tu confianza creciendo. Elige tu idioma y luego un rol de demostración para explorar.',
     welcomeBodyLive:

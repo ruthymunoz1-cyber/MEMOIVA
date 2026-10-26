@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>MEMOIVA Circle Student Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#1A2B4C; --teal:#0E7C7B; --teal-light:#00C4C4; --gold:#B8860B; --gold-light:#E8B84B;
+    --purple:#7A6BCC; --cream:#FAF6EC; --white:#FFFFFF; --text-body:#1A1A2E; --text-muted:#4A5A6A;
+    --ff-serif:'Cormorant Garamond',Georgia,serif; --ff-sans:'Jost',sans-serif; --ff-display:'Bebas Neue',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  @page{ size: letter; margin: 0; }
+  html, body{margin:0; padding:0; width:8.5in;}
+  body{font-family:var(--ff-sans);color:var(--text-body);}
+  .page{
+    width:8.5in; height:11in; padding:0.75in; position:relative;
+    break-after:page; background:var(--cream);
+  }
+  .page--white{background:var(--white);}
+
+  /* --- Cover --- */
+  .cover{
+    background:var(--cream);
+    text-align:center; padding-top:2.2in;
+  }
+  .cover .ramp-mark{display:block; width:1.1in; margin:0 auto 0.3in;}
+  .cover .ramp-wordmark{display:block; width:2.6in; margin:0 auto 0.55in;}
+  .cover .memoiva-word{font-family:var(--ff-display); font-size:60pt; letter-spacing:.14em; color:var(--navy); line-height:1;}
+  .cover .memoiva-word .i{color:var(--teal-light);}
+  .cover .tm{font-size:18pt; vertical-align:super; color:var(--navy); opacity:.7;}
+  .cover .circle-word{font-family:var(--ff-display); font-size:40pt; letter-spacing:.14em; color:var(--navy); margin-top:4pt;}
+  .cover .flagship{font-size:10pt; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-top:10pt;}
+  .cover .subtitle{font-family:var(--ff-serif); font-style:italic; font-size:22pt; color:var(--navy); margin-top:0.45in;}
+  .cover .edition{font-size:11pt; color:var(--text-muted); margin-top:10pt; letter-spacing:.05em;}
+  .cover .divider{width:1.4in; height:3px; border-radius:2px; margin:0.35in auto; background:linear-gradient(to right,var(--teal),var(--gold));}
+  .cover .imprint{position:absolute; bottom:0.75in; left:0; right:0; text-align:center;}
+  .cover .imprint-label{font-size:9pt; letter-spacing:.14em; text-transform:uppercase; color:var(--text-muted);}
+  .cover .imprint-name{font-family:var(--ff-serif); font-style:italic; font-size:14pt; color:var(--navy); margin-top:2pt;}
+
+  /* --- Section header pages --- */
+  h1.page-title{font-family:var(--ff-serif); font-size:28pt; font-weight:600; color:var(--navy); margin:0 0 6pt;}
+  p.eyebrow{font-size:9pt; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin:0 0 6pt;}
+  .rule{height:3px; width:60pt; border-radius:2px; background:linear-gradient(to right,var(--teal),var(--gold)); margin:10pt 0 18pt;}
+  p{line-height:1.6; font-size:12pt;}
+
+  .disclaimer{font-size:9pt; color:var(--text-muted); line-height:1.6; border-top:1px solid rgba(26,43,76,.15); padding-top:10pt; margin-top:24pt;}
+
+  /* --- Week pages --- */
+  .week-badge{display:inline-block; background:var(--navy); color:var(--white); font-family:var(--ff-display); letter-spacing:.1em; font-size:12pt; padding:5pt 14pt; border-radius:20pt; margin-bottom:10pt;}
+  .theme-line{font-family:var(--ff-serif); font-style:italic; font-size:19pt; color:var(--teal); margin:0 0 16pt;}
+  table.vocab{width:100%; border-collapse:collapse; margin:10pt 0 18pt;}
+  table.vocab th{text-align:left; font-size:9pt; text-transform:uppercase; letter-spacing:.08em; color:var(--text-muted); border-bottom:2px solid var(--navy); padding:6pt 8pt;}
+  table.vocab td{padding:8pt; border-bottom:1px solid rgba(26,43,76,.15); font-size:13pt;}
+  table.vocab td.word{font-weight:600; color:var(--navy);}
+  table.vocab td.pron{font-style:italic; color:var(--text-muted); font-size:11pt;}
+  .affirmation-box{background:var(--white); border-left:4px solid var(--gold); padding:14pt 18pt; margin:18pt 0; border-radius:4px;}
+  .affirmation-box .label{font-size:9pt; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); font-weight:600;}
+  .affirmation-box p{font-family:var(--ff-serif); font-style:italic; font-size:16pt; color:var(--navy); margin:6pt 0 0;}
+  .notes-label{font-size:9pt; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-top:20pt;}
+  .notes-lines{margin-top:10pt;}
+  .notes-lines div{border-bottom:1px solid rgba(26,43,76,.25); height:26pt;}
+
+  /* --- Placeholder (unwritten) weeks --- */
+  .placeholder-tag{display:inline-block; background:rgba(184,134,11,.12); border:1px solid var(--gold); color:var(--gold); font-size:9pt; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:4pt 10pt; border-radius:16pt; margin-bottom:12pt;}
+  .blank-field{border-bottom:1px solid rgba(26,43,76,.3); display:inline-block; min-width:220pt; height:14pt;}
+
+  /* --- Coloring page --- */
+  .coloring-page{text-align:center; padding-top:1.3in;}
+  .coloring-page svg{display:block; width:6.2in; height:6.2in; margin:0 auto;}
+  .coloring-caption{font-family:var(--ff-serif); font-style:italic; font-size:14pt; color:var(--navy); margin-top:0.3in; text-align:center;}
+
+  /* --- Closing page --- */
+  .closing{text-align:center; background:var(--navy); color:var(--white); padding-top:4in;}
+  .closing .quote{font-family:var(--ff-serif); font-style:italic; font-size:22pt; max-width:5.5in; line-height:1.5;}
+  .closing .attr{font-size:10pt; color:rgba(255,255,255,.6); margin-top:14pt;}
+  .closing .flagship-white{font-size:9pt; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-light); margin-top:0.6in;}
+
+  @media print {
+    .page{margin:0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+  <img class="ramp-mark" src="file:///home/user/MEMOIVA/docs/brand-assets/ramp-globe-mark.png" alt="" />
+  <img class="ramp-wordmark" src="file:///home/user/MEMOIVA/docs/brand-assets/ramp-wordmark.png" alt="" />
+  <div class="divider"></div>
+  <div class="memoiva-word">MEMO<span class="i">I</span>VA<sup class="tm">&trade;</sup></div>
+  <div class="circle-word">CIRCLE</div>
+  <p class="flagship">A Flagship Program of RAMP Linguistic Society</p>
+  <p class="subtitle">Student Workbook</p>
+  <p class="edition">8-Week Program &middot; Weeks 1&ndash;8</p>
+  <div class="imprint">
+    <div class="imprint-label">Published by</div>
+    <div class="imprint-name">RAMP Linguistic Society Publishing</div>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="page page--white">
+  <p class="eyebrow">Welcome</p>
+  <h1 class="page-title">This workbook is yours.</h1>
+  <div class="rule"></div>
+  <p>Welcome to MEMOIVA Circle &mdash; a warm, weekly program to keep your mind active and your confidence growing. This workbook travels with you through all eight weeks of your program: new vocabulary each week, a place for your own notes, and a calming activity you can return to anytime between sessions.</p>
+  <p>Bring it to every session. Write in it. Dog-ear the pages. It's meant to be used, not kept pristine.</p>
+  <p>Everything in this workbook is also available in the MEMOIVA Circle app, included with your enrollment &mdash; use whichever one feels easiest for you, or both.</p>
+  <p class="disclaimer">MEMOIVA Circle is inspired by peer-reviewed research on bilingualism and cognitive health. It is not a medical device and does not diagnose, treat, prevent, or cure any medical condition. The assessments used in MEMOIVA Circle are educational tools, not clinical diagnostic instruments. If you have concerns about your cognitive health, please consult a qualified healthcare provider.</p>
+</div>
+
+<!-- WEEK 1 -->
+<div class="page page--white">
+  <span class="week-badge">WEEK 1</span>
+  <h1 class="page-title">Mi hogar / My Home</h1>
+  <div class="theme-line">This week, we talk about home.</div>
+  <table class="vocab">
+    <tr><th>Spanish</th><th>English</th><th>Say it like this</th></tr>
+    <tr><td class="word">la casa</td><td>house</td><td class="pron">lah KAH-sah</td></tr>
+    <tr><td class="word">el sol</td><td>sun</td><td class="pron">el SOHL</td></tr>
+    <tr><td class="word">el &aacute;rbol</td><td>tree</td><td class="pron">el AR-bol</td></tr>
+    <tr><td class="word">la flor</td><td>flower</td><td class="pron">lah FLOR</td></tr>
+    <tr><td class="word">la puerta</td><td>door</td><td class="pron">lah PWAIR-tah</td></tr>
+    <tr><td class="word">la ventana</td><td>window</td><td class="pron">lah ven-TAH-nah</td></tr>
+  </table>
+  <div class="affirmation-box">
+    <div class="label">This week's affirmation</div>
+    <p>Cada semana, mi mente crece m&aacute;s fuerte.<br>Every week, my mind grows stronger.</p>
+  </div>
+  <div class="notes-label">My notes</div>
+  <div class="notes-lines"><div></div><div></div><div></div></div>
+</div>
+
+<!-- COLORING PAGE 1 -->
+<div class="page page--white coloring-page">
+  <!--MANDALA_SVG_1-->
+  <p class="coloring-caption">A calming moment &mdash; color at your own pace.</p>
+</div>
+
+<!-- WEEKS 2-8 PLACEHOLDERS -->
+<!--WEEK_PLACEHOLDERS-->
+
+<!-- COLORING PAGE 2 -->
+<div class="page page--white coloring-page">
+  <!--MANDALA_SVG_2-->
+  <p class="coloring-caption">A calming moment &mdash; color at your own pace.</p>
+</div>
+
+<!-- CLOSING -->
+<div class="page closing">
+  <p class="quote">&ldquo;You are a person who speaks two languages. Your brain showed up today.&rdquo;</p>
+  <p class="attr">&mdash; Closing affirmation, every MEMOIVA Circle session</p>
+  <p class="flagship-white">A Flagship Program of RAMP Linguistic Society</p>
+</div>
+
+</body>
+</html>

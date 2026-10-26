@@ -45,38 +45,55 @@ Same inclusions as Founding, plus: multi-cohort packages available.
 - **HSA/FSA:** may be eligible; RAMP Linguistic Society provides a program
   description letter on request.
 
-## Proposed amended pricing — 5-week or 6-week cohort
+## One-off town center pilot (5 or 6 weeks) — not yet published
 
-**Not yet approved or published — this is a calculation for you to review,
-adjust, or reject, not a live price.** Method: same 2×/week cadence, so a
-5-week cohort = 10 sessions and a 6-week cohort = 12 sessions (vs. 16 for
-the full 8-week program); each tier's current price divided by 16 to get a
-true per-session rate, then multiplied back up by 10 or 12, rounded to a
-clean number.
+**Context (2026-10-26):** this is a one-off pilot offered through a town
+center, not a new standard program length — if it's successful, future
+cohorts go back to the normal 8-week format. The venue takes **40% of the
+ticket price**, Ruthy keeps 60%. Same 2×/week cadence as the full program,
+so 5 weeks = 10 sessions, 6 weeks = 12 sessions.
 
-| | Founding Individual | Founding Dyad | Standard Individual | Standard Dyad |
-|---|---|---|---|---|
-| **Per-session rate** | $62.44 | $81.19 | $93.69 | $118.69 |
-| **5 weeks (10 sessions)** | ~$625 | ~$810 | ~$935 | ~$1,185 |
-| **6 weeks (12 sessions)** | ~$750 | ~$975 | ~$1,125 | ~$1,425 |
+**The tradeoff Ruthy named directly:** price it too close to a straight
+proportional slice of the 8-week rate, and the 40% cut drags her real
+take-home per session well below even her already-discounted Founding
+rate — effectively lowballing herself on a shorter, less-tested format,
+at a venue that's also taking a cut. Price it to fully protect her
+Founding per-session rate after the cut, and the gross ticket price
+lands *at or above* the full 8-week Founding price ($999) for a
+*shorter* program — a bad look for a price-sensitive, first-time
+community audience, and the thing she's also worried about (too
+expensive, nobody signs up).
 
-The 6-week numbers land on especially clean figures ($750 / $975 / $1,125 /
-$1,425) if you want round marketing-friendly prices rather than exact
-fractions — the 5-week ones are close to clean too.
+**Recommendation:** price so Ruthy nets roughly $50/session after the
+venue's 40% — about 80% of her existing Founding per-session rate
+($62.44). That's a real, deliberate "introductory community rate," not a
+full discount, and keeps the sticker price clearly below the $999 full
+8-week price in both cases.
 
-**Worth deciding before this goes anywhere official:**
-- Is this meant as a genuinely shorter *standard* program length, or a
-  one-off trial/pilot cohort price? That affects whether "8 weeks," "Week 8
-  graduation," and the certificate/workbook pacing language elsewhere on the
-  site also need to change, or whether this is a special-case exception.
-- Keep the $100 deposit, payment-plan structure, and returning-student
-  discount proportionally scaled too, or leave those as flat amounts
-  regardless of cohort length?
-- Straight proportional math (above) vs. a deliberately *better* per-session
-  rate for the shorter cohort (common when a shorter program is positioned
-  as an entry point/trial rather than literally "the same thing but less"),
-  or vice versa if you want the full 8-week option to be the clear best
-  value.
+| | 5 weeks (10 sessions) | 6 weeks (12 sessions) |
+|---|---|---|
+| **Ticket price (what the attendee pays)** | **$849** | **$989** |
+| Venue's cut (40%) | $339.60 | $395.60 |
+| Ruthy's net (60%) | $509.40 | $593.40 |
+| Ruthy's net per session | ~$51 | ~$49 |
 
-Nothing above is published anywhere yet — tell me which cohort length and
-which rounding you want, and I'll add it to the website's pricing section.
+Both are comfortably under the $999 full 8-week Founding price (good
+optics: less time costs less), and both keep Ruthy's per-session take at
+roughly 80% of her own Founding rate — a real community discount, not a
+giveaway.
+
+**For reference, the two edges of the range**, if $849/$989 doesn't feel
+right:
+- **Cheapest defensible / most signups:** straight proportional slice of
+  the Founding rate with no adjustment for the venue's cut — $625 (5 wk) /
+  $749 (6 wk). Nets Ruthy only ~$37–38/session after the cut — the
+  "lowball" she's worried about.
+- **Fully protects her rate:** priced so her net after the cut still
+  equals her full $62.44/session Founding rate — $1,049 (5 wk) / $1,249
+  (6 wk). Nets Ruthy her full existing rate, but costs more than the full
+  8-week program for less of it.
+
+Nothing above is published anywhere — once a length and price are
+confirmed, I'll add it to the website's pricing section as a clearly
+labeled one-off/town-center offer, not a change to the standard 8-week
+pricing.

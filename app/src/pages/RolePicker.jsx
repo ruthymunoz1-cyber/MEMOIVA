@@ -102,6 +102,7 @@ export default function RolePicker() {
           <div className="p-8">
             <h1 className="text-center font-display text-5xl tracking-[0.18em] text-navy">
               MEMO<span className="text-teal-accent">I</span>VA <span className="text-4xl">CIRCLE</span>
+              <sup className="ml-0.5 text-base font-sans tracking-normal text-navy/70">™</sup>
             </h1>
             <p className="mt-1 text-center text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-gold">
               {t('flagship')}

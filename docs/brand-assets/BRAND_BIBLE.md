@@ -79,6 +79,14 @@ Any place in the app or website that renders "MEMOIVA" as a heading should
 use this pattern — plain flat-colored text is not the brand wordmark, even
 if the color is technically close.
 
+**Trademark symbol:** mark is unregistered, so it's ™ — not ® (® is only
+correct once the USPTO has actually issued a registration; using it before
+that is a real legal problem, not just a styling choice). ™ goes on the
+primary logo/wordmark instances (nav, hero/footer lockups, the app's header
+and login screen) — not on every casual mention of "MEMOIVA" in running
+body copy, which is standard trademark usage practice. If/when the mark is
+actually registered, swap ™ → ® in these same spots and update this note.
+
 **Other approved assets** (`docs/brand-assets/`):
 - `memoiva-wordmark.png` — full logo lockup with tagline, for places needing
   the complete mark as an image (e.g. a footer, a PDF cover).

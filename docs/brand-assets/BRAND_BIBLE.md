@@ -100,6 +100,16 @@ actually registered, swap ™ → ® in these same spots and update this note.
   mark competing with a nearby wordmark) read better.
 - `memoiva-logo-directions-screenshot.png` — reference screenshot of logo
   direction options; not a final asset.
+- `ramp-linguistic-society-logo.jpg` — the parent company's full lockup
+  (globe mark + wordmark stacked), as shared by the founder, 2026-10-26.
+  This is a **separate mark from MEMOIVA's own** — navy/teal/gold palette
+  (consistent with MEMOIVA's locked colors) but its own distinct globe icon
+  and "RAMP / LINGUISTIC SOCIETY" wordmark, used for RAMP-as-the-company
+  contexts (e.g. publishing/imprint branding) rather than the MEMOIVA Circle
+  program itself.
+- `ramp-globe-mark.png` / `ramp-wordmark.png` — the same lockup, cropped
+  into its two components so they can be placed independently (per founder
+  direction, 2026-10-26) rather than always used as one fixed unit.
 
 ## Accessibility baseline (applies everywhere)
 

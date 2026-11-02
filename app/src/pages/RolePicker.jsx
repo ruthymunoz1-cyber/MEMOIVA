@@ -27,6 +27,7 @@ export default function RolePicker() {
   const [busy, setBusy] = useState(false);
   const [email, setEmail] = useState('');
   const [linkStatus, setLinkStatus] = useState(null); // null | 'sent' | 'error'
+  const [linkErrorDetail, setLinkErrorDetail] = useState('');
   const [noAccount, setNoAccount] = useState(false);
 
   // Already signed in (e.g. returned from clicking the magic link) — go
@@ -58,11 +59,14 @@ export default function RolePicker() {
     if (busy || !email.trim()) return;
     setBusy(true);
     setLinkStatus(null);
+    setLinkErrorDetail('');
     try {
       await dataClient.sendMagicLink(email.trim());
       setLinkStatus('sent');
-    } catch {
+    } catch (err) {
+      console.error('sendMagicLink failed:', err);
       setLinkStatus('error');
+      setLinkErrorDetail(err?.message || String(err));
     } finally {
       setBusy(false);
     }
@@ -175,6 +179,11 @@ export default function RolePicker() {
                   {linkStatus === 'error' && (
                     <p className="text-lg text-red-700" role="alert">
                       {t('loginLinkError')}
+                      {linkErrorDetail && (
+                        <span className="mt-1 block text-sm text-red-700/70">
+                          ({linkErrorDetail})
+                        </span>
+                      )}
                     </p>
                   )}
                 </form>
